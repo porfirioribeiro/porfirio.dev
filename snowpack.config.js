@@ -24,9 +24,7 @@ module.exports = {
   },
   mount: {
     ".svelte/assets": "/_app/assets",
-    "src/components": "/_components",
     "src": "/_src",
-
   },
   alias: {
     $app: "./.svelte/assets/app",
