@@ -128,10 +128,10 @@
     execa "^4.0.3"
     npm-run-path "^4.0.1"
 
-"@sveltejs/adapter-node@0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-0.0.16.tgz#16b9bb582bd7bcf56ddecf3fff67c340fe3b1faf"
-  integrity sha512-JiPEXX+J3BDsy0PqwoNZ/aK6QcNYZsXy5MaJCIJvkJZZUqWZ1OfqP2M8STaJGKRdLRJGU9X65mRzwl8cZFJ/3g==
+"@sveltejs/adapter-node@0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-0.0.18.tgz#8dbf729a2e83b28685eb8c9af2c642035bb51da6"
+  integrity sha512-A1yEbInfBWz/qzKlSdg5Kuq6Tqh1Kl1Qnp3221GsP05H/EWDM+7Xxp1vzDCHHJNRNKge8JUFUFTzK8ZoUxvOng==
   dependencies:
     "@sveltejs/app-utils" "0.0.18"
 
@@ -142,10 +142,10 @@
   dependencies:
     mime "^2.4.6"
 
-"@sveltejs/kit@0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-0.0.27.tgz#42628fd2f4805a70e1d826fdd9a78152856a25b1"
-  integrity sha512-PEe3mpM5/WGbDvL3Z49HizMIl+BrA8fm/zWX9g0HIRcV/C/GtU4+hmaZlwAmzVqNxuS49t7ALJIzVyVJibfY5g==
+"@sveltejs/kit@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-0.0.29.tgz#4340913ea749bf72cab5163b1d46589353d52491"
+  integrity sha512-rxjJ/bqr3V9Mf/DTmtmuyfupArGnainkwFn23K0pz6Iz1qlZNeY2XoPIzKly6wgt4aO1awgJp4Mh2UAqFoFtqA==
   dependencies:
     "@sveltejs/app-utils" "0.0.18"
     cheap-watch "^1.0.2"
