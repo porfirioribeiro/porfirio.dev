@@ -39,17 +39,13 @@ async function processPost(file: string): Promise<Post> {
   const readingStats = readingTime(body);
   const date = formatDate(new Date(attributes.date), "MMMM d, yyyy");
 
-  const post: Post = {
+  return {
     slug,
     title: attributes.title,
     date,
     html,
     readingTime: readingStats.text,
   };
-
-  console.log(post);
-
-  return post;
 }
 
 interface FrontMatterTypes {

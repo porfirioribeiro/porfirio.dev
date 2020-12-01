@@ -1,15 +1,31 @@
 <script lang="ts">
+  import Nav from "$components/Nav.svelte";
+  import { fade } from "svelte/transition";
+
   export let segment: string;
 
-  $: console.log(segment);
+  const links = [
+    { s: "", t: "Home" },
+    { s: "about", t: "About" },
+    { s: "blog", t: "Blog" },
+  ];
 </script>
 
-<nav>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/blog">Blog</a></li>
-  </ul>
-</nav>
+<style lang="scss">
+  div {
+    position: relative;
+  }
+  main {
+    position: absolute;
+    width: 100vw;
+  }
+</style>
 
-<slot />
+<Nav {links} {segment} />
+<div>
+  {#key segment}
+    <main transition:fade>
+      <slot />
+    </main>
+  {/key}
+</div>
