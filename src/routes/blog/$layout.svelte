@@ -1,0 +1,2 @@
+<!-- Blog specific layout -->
+<slot />

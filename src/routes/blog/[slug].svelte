@@ -1,27 +1,20 @@
 <script lang="ts" context="module">
   export async function preload(page, session) {
-    // the `slug` parameter is available because this file
-    // is called [slug].svelte
     const { slug } = page.params;
 
-    console.log(page,'sdsdsdsd');
-    console.log(this);
-    
+    const res = await this.fetch(`${slug}.json`);
+    const post = await res.json();
 
-    // `this.fetch` is a wrapper around `fetch` that allows
-    // you to make credentialled requests on both
-    // server and client
-    // const res = await this.fetch(`blog/${slug}.json`);
-    // const article = await res.json();
-
-    return { slug };
+    return { post };
   }
 </script>
 
 <script lang="ts">
-  export let slug: string;
+  import Markdown from "$components/Markdown.svelte";
+  import type { Post } from "$src/utils/post";
 
-  $: console.log(slug);
+  export let post: Post;
 </script>
 
-<h2>Blog: {slug}</h2>
+<h2>{post.title}</h2>
+<Markdown html={post.html} />

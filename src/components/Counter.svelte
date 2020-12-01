@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { te } from "../utils";
-  te();
-
   let count: number = 0;
 
   const increment = () => {

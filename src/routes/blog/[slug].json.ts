@@ -1,17 +1,12 @@
-const posts = [];
+import { getPost } from "../../utils";
 
-const lookup = new Map();
-posts.forEach((post) => {
-  lookup.set(post.slug, JSON.stringify(post));
-});
-
-export function get(req) {
-  console.log(req);
-
+export async function get(req) {
   const { slug } = req.params;
 
-  if (lookup.has(slug)) {
-    return { headers: {}, body: lookup.get(slug) };
+  const post = await getPost(slug);
+
+  if (post) {
+    return { headers: {}, body: post };
   } else {
     return {
       headers: {},
