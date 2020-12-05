@@ -1,4 +1,6 @@
 <script lang="ts">
+  import NavLink from "./NavLink.svelte";
+
   export let links: { s: string; t: string }[];
   export let segment: string;
 
@@ -37,7 +39,7 @@
   $header-height: 60px;
   nav {
     position: sticky;
-    width: 100%;
+    // width: 100%;
     height: $header-height;
     background-color: white;
     z-index: 1;
@@ -48,6 +50,8 @@
 
     top: -$header-height;
     transition: top 300ms, box-shadow 200ms, background 200ms, color 200ms;
+
+    padding: 0 16px;
   }
 
   .pin {
@@ -57,34 +61,12 @@
   .atTop {
     box-shadow: none;
   }
-  .placeholder {
-    height: $header-height;
-  }
   ul {
     display: flex;
     align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  li {
-    transition: color 0.2s, border 0.2s, padding 0.2s;
-    color: gray;
-  }
-
-  li[aria-current] {
-    color: green;
-  }
-
-  li:hover:not([aria-current]) {
-    color: blue;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-    padding: 8px;
   }
 </style>
 
@@ -93,9 +75,7 @@
   <div>Porfirio.dev</div>
   <ul>
     {#each links as { s, t }}
-      <li aria-current={path === s ? 'page' : undefined}>
-        <a rel="prefetch" href={`/${s}`}>{t}</a>
-      </li>
+      <NavLink href={`/${s}`} current={path === s}>{t}</NavLink>
     {/each}
   </ul>
 </nav>
