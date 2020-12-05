@@ -10,7 +10,12 @@ import type { Post } from "./post";
 
 marked.setOptions({ renderer });
 
-const postsDir = path.resolve(process.cwd(), "src/posts");
+global.__dirname != undefined;
+
+const postsDir =
+  global.__dirname != undefined
+    ? path.resolve(__dirname, "../../..", "src/posts")
+    : path.resolve(process.cwd(), "src/posts");
 let postPromise: Promise<Post[]>;
 
 function loadPosts(): Promise<Post[]> {
