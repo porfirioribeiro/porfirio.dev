@@ -120,34 +120,46 @@
     svelte-hmr "^0.11.2"
     svelte-preprocess "^4.5.2"
 
-"@snowpack/plugin-typescript@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@snowpack/plugin-typescript/-/plugin-typescript-1.1.0.tgz#902d3f5500e7295835cefa31c0a26cafd2d819d0"
-  integrity sha512-6jAFFks42lW1Gy07qVF6A0RKOCQc+ICa029GUrbgLmXhs0UzDmTG+jJ0qyC41J9MnRR/utLrXvgWWVrmIrPifw==
+"@snowpack/plugin-typescript@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@snowpack/plugin-typescript/-/plugin-typescript-1.1.1.tgz#50b982faa962e33fb07a512ed4cbc16bef67df77"
+  integrity sha512-qKEPSTI1Q5r8AAklF6Hpt4xKchkIy1EBWbdTi4v3uA2t/eqlpiZXhJyXTEIfOiPE01nQFIUIcgBeufuNMHVXNw==
   dependencies:
     execa "^4.0.3"
     npm-run-path "^4.0.1"
 
-"@sveltejs/adapter-node@0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-0.0.18.tgz#8dbf729a2e83b28685eb8c9af2c642035bb51da6"
-  integrity sha512-A1yEbInfBWz/qzKlSdg5Kuq6Tqh1Kl1Qnp3221GsP05H/EWDM+7Xxp1vzDCHHJNRNKge8JUFUFTzK8ZoUxvOng==
+"@sveltejs/adapter-netlify@^1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-netlify/-/adapter-netlify-1.0.0-next.0.tgz#c4d24d60b459e13f09d43f18569302a8fe6842e4"
+  integrity sha512-CxjWlGkNyQzEB9LsXN+MvF1Z+SHRb16cNZL8sy5bUcytDcf7ETjlgKdaxks7ygWBhI/wtx4Mcxr+uIt50p8vag==
   dependencies:
-    "@sveltejs/app-utils" "0.0.18"
+    toml "^3.0.0"
 
-"@sveltejs/app-utils@0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@sveltejs/app-utils/-/app-utils-0.0.18.tgz#a2c829c17584307a9f7fa4e5cce44bb0a2b864d3"
-  integrity sha512-fwHT07xTrY8Zkj3RME2vE6dpqIocuI9qTW1vNGbNP0P+0seaEsIM6l4QRei8IRpz6dykExt+QVPlN57XrJ2Qfw==
+"@sveltejs/adapter-node@1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.0.tgz#8b5c81a8d46a0743c9642114bb557837603b3570"
+  integrity sha512-NNdBGSARtrvLWLIUem/RKWYJ7cKq4xn0nxSASKogLSYL5SOrb6AgHunWQXv8VqDZ0jT7xQCORgASn006/HmaYQ==
+  dependencies:
+    "@sveltejs/app-utils" "1.0.0-next.0"
+
+"@sveltejs/adapter-static@^1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-1.0.0-next.0.tgz#558c3339259edd001b82bb8a978846dce53d3b7c"
+  integrity sha512-5QYrPSjfqI/Jd2av/WuwhZjRZHaWu8tGmBHM6dh5W7cd4s0PG3eW0p4eASZESHmtCFWGG00PYMRjUUFPPtEcOg==
+
+"@sveltejs/app-utils@1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@sveltejs/app-utils/-/app-utils-1.0.0-next.0.tgz#da1c857632c32304e82b3fbb224eee642012c922"
+  integrity sha512-4fCuD+aLrq/iFVJWosIv8oi43tv4o7bGZVyNHMBamdIaVTcydRaPjxQCTM8OQPRVftHyrTIIvT3uH03kAxHZ0Q==
   dependencies:
     mime "^2.4.6"
 
-"@sveltejs/kit@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-0.0.29.tgz#4340913ea749bf72cab5163b1d46589353d52491"
-  integrity sha512-rxjJ/bqr3V9Mf/DTmtmuyfupArGnainkwFn23K0pz6Iz1qlZNeY2XoPIzKly6wgt4aO1awgJp4Mh2UAqFoFtqA==
+"@sveltejs/kit@1.0.0-next.1":
+  version "1.0.0-next.1"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.1.tgz#1d44d36c3938cd54b562208ac57964395652dea1"
+  integrity sha512-EmfQpYe8b9RtEn+oqLiZKRF5xISxMSPxjp+dbKwZAtWAVVXpSl1prdYwz+oJuV0K3Nn2IDClHDiO0ygftqPplA==
   dependencies:
-    "@sveltejs/app-utils" "0.0.18"
+    "@sveltejs/app-utils" "1.0.0-next.0"
     cheap-watch "^1.0.2"
     http-proxy "^1.18.1"
     rollup "^2.32.0"
@@ -158,10 +170,10 @@
     scorta "^1.0.0"
     snowpack "^2.17.0"
 
-"@sveltejs/snowpack-config@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@sveltejs/snowpack-config/-/snowpack-config-0.0.7.tgz#a152dc2ab6fbabaeff167b5f96b237676f93f041"
-  integrity sha512-yQmg0jz7anzm0AuOGt4tNp3aM2y/knUJ+L0N8sLep8cb4NlVzfOle9s4lKk5RCSBc22mf6affBKFqJtsFLtC2w==
+"@sveltejs/snowpack-config@1.0.0-next.0":
+  version "1.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@sveltejs/snowpack-config/-/snowpack-config-1.0.0-next.0.tgz#4f016b895c1ba2ff896d416022ce176bbb0938fe"
+  integrity sha512-0G5GPdNIGRmiVWXK/43G4e7RJoiMYUYt85Won9dv/v+OAwlIq1g5Dnrr8bMMohKi/LXQQgySw96GeORWtbMJHg==
   dependencies:
     "@snowpack/plugin-svelte" "^3.0.0"
 
@@ -1402,10 +1414,10 @@ safe-buffer@^5.1.0:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
 
-sass@1.29.0:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.29.0.tgz#ec4e1842c146d8ea9258c28c141b8c2b7c6ab7f1"
-  integrity sha512-ZpwAUFgnvAUCdkjwPREny+17BpUj8nh5Yr6zKPGtLNTLrmtoRYIjm7njP24COhjJldjwW1dcv52Lpf4tNZVVRA==
+sass@1.30.0:
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.30.0.tgz#60bbbbaf76ba10117e61c6c24f00161c3d60610e"
+  integrity sha512-26EUhOXRLaUY7+mWuRFqGeGGNmhB1vblpTENO1Z7mAzzIZeVxZr9EZoaY1kyGLFWdSOZxRMAufiN2mkbO6dAlw==
   dependencies:
     chokidar ">=2.0.0 <4.0.0"
 
@@ -1610,10 +1622,10 @@ svelte-preprocess@4.6.1, svelte-preprocess@^4.5.2:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte@3.30.1:
-  version "3.30.1"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.30.1.tgz#9352bf7bc82277353cfaa3a6afc46d3aa3563e0d"
-  integrity sha512-Qs3/5CiDhrtM+t8AaPJz0T99sv/I5pgQP0KnpBPAtMGY+MR4NWUPyOqWqPYhoV0QMNLfmSi/DACUUwwyEraEPA==
+svelte@3.31.0:
+  version "3.31.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.31.0.tgz#13966e5f55b975bc86675469bb2c58dd0e558d97"
+  integrity sha512-r+n8UJkDqoQm1b+3tA3Lh6mHXKpcfOSOuEuIo5gE2W9wQYi64RYX/qE6CZBDDsP/H4M+N426JwY7XGH4xASvGQ==
 
 tar@^6.0.2:
   version "6.0.5"
@@ -1647,6 +1659,11 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+toml@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/toml/-/toml-3.0.0.tgz#342160f1af1904ec9d204d03a5d61222d762c5ee"
+  integrity sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==
 
 tslib@2.0.3:
   version "2.0.3"
