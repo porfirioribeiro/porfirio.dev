@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-  import type { Post } from "$src/utils/post";
+  import type { Post } from "$src/routes/blog/_utils/post";
 
   export let posts: Post[];
 

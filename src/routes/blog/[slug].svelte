@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import Markdown from "$components/Markdown.svelte";
-  import type { Post } from "$src/utils/post";
+  import type { Post } from "./_utils/post";
 
   export let post: Post;
 </script>
