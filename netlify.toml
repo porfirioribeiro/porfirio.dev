@@ -1,4 +1,4 @@
 [build]
-command = "yarn build && yarn adapt"
-publish = "build/"
-functions = "functions/"
+  command = "yarn build"
+  publish = "build"
+  functions = "functions"
