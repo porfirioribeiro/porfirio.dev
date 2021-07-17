@@ -16,6 +16,7 @@
 
 <svelte:head>
   <title>About</title>
+  <meta name="description" content="porfirio.dev - About me" />
 </svelte:head>
 
 <div class="content">

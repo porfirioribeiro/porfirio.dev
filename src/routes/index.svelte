@@ -19,6 +19,7 @@
 
 <svelte:head>
   <title>Home</title>
+  <meta name="description" content="porfirio.dev - Home" />
 </svelte:head>
 
 <section>

@@ -18,12 +18,18 @@
   export let books: Book[];
 </script>
 
+<svelte:head>
+  <title>Resources</title>
+  <meta name="description" content="porfirio.dev - Resources" />
+</svelte:head>
+
+
 <h3>Books</h3>
 
 <dl>
   {#each books as book}
     <dt>
-      <a href={book.href} target="__blank" rel="noopener">
+      <a href={book.href} target="_blank" rel="noopener noreferrer">
         {book.title}
       </a>
     </dt>
