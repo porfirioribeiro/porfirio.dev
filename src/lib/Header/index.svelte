@@ -25,13 +25,25 @@
   </nav>
 
   <div class="corner right">
-    <a href="https://github.com/porfirioribeiro" target="_blank">
+    <a
+      href="https://github.com/porfirioribeiro"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Icon icon="logo-github" />
     </a>
-    <a href="https://twitter.com/porfirio" target="_blank">
+    <a
+      href="https://twitter.com/porfirio"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Icon icon="logo-twitter" />
     </a>
-    <a href="https://linkedin.com/in/porfirioribeiro" target="_blank">
+    <a
+      href="https://linkedin.com/in/porfirioribeiro"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Icon icon="logo-linkedin" />
     </a>
   </div>
@@ -42,7 +54,7 @@
     display: flex;
     justify-content: space-between;
     /* background-color: var(--theme-surface); */
-    background-color: rgba(255,255,255,0.12);
+    background-color: rgba(255, 255, 255, 0.12);
   }
 
   .corner {
@@ -65,10 +77,10 @@
     object-fit: contain;
   }
 
-  .corner.right{
-	  display: flex;
+  .corner.right {
+    display: flex;
   }
-  .corner.right > a  {
+  .corner.right > a {
     color: white;
     width: 24px;
   }
