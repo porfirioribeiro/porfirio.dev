@@ -2,20 +2,24 @@
   export const prerender = true;
 
   import { books } from "$lib/resources/books";
+  import { podcasts } from "$lib/resources/podcasts";
 
   export function load() {
     return {
       props: {
         books,
+        podcasts,
       },
     };
   }
 </script>
 
 <script lang="ts">
-  import type { Book } from "$lib/resources/books";
+  import Resources from "$lib/resources/index.svelte";
+  import type { ResourceShape } from "$lib/resources/types";
 
-  export let books: Book[];
+  export let books: ResourceShape[];
+  export let podcasts: ResourceShape[];
 </script>
 
 <svelte:head>
@@ -23,16 +27,18 @@
   <meta name="description" content="porfirio.dev - Resources" />
 </svelte:head>
 
+<h1>Resources</h1>
 
 <h3>Books</h3>
 
-<dl>
-  {#each books as book}
-    <dt>
-      <a href={book.href} target="_blank" rel="noopener noreferrer">
-        {book.title}
-      </a>
-    </dt>
-    <dd>{book.author}</dd>
-  {/each}
-</dl>
+<p>A list of some books i enjoyed reading and i found interesting.</p>
+
+<Resources resources={books} />
+
+<h3>Podcasts</h3>
+
+<p>
+  A list of podcasts i enjoy listen to while i'm going for a walk every morning
+</p>
+
+<Resources resources={podcasts} />

@@ -1,10 +1,6 @@
-export type Book = {
-  href: string;
-  title: string;
-  author: string;
-};
+import type { ResourceShape } from "./types";
 
-export const books: Book[] = [
+export const books: ResourceShape[] = [
   {
     title: "Reactive Spring",
     author: "Josh Long",

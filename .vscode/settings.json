@@ -1,0 +1,10 @@
+{
+	"cSpell.enabled": true,
+	"cSpell.enableFiletypes": ["svelte"],
+	"cSpell.words": [
+		//ignore common HTML stuff that fails on spell check
+		"noopener",
+		"noreferrer",
+		"prerender"
+	]
+}
