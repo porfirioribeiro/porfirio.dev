@@ -10,7 +10,7 @@
 </main>
 
 <footer>
-	<p>Overengineered with <a href="https://kit.svelte.dev">SvelteKit</a> by Porfírio Ribeiro</p>
+	<p>Over-engineered with <a href="https://kit.svelte.dev">SvelteKit</a> by Porfírio Ribeiro</p>
 </footer>
 
 <style>
