@@ -2,7 +2,7 @@
   import { icons } from "./icons";
   type IconName = keyof typeof icons;
   export let icon: IconName;
-  export let size = 512;
+  export let size = 24;
 </script>
 
 <svg
