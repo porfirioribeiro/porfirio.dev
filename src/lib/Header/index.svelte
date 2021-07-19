@@ -79,6 +79,7 @@
 
   .corner.right {
     display: flex;
+    margin-right: 8px;
   }
   .corner.right > a {
     color: white;
