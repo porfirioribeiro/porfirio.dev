@@ -52,7 +52,7 @@
   </div>
 </header>
 
-<style>
+<style lang="scss">
   header {
     display: flex;
     justify-content: space-between;
@@ -86,6 +86,10 @@
   .corner.right > a {
     color: white;
     width: 24px;
+    transition: color 300ms ease-in-out;
+    &:hover {
+      color: var(--theme-secondary);
+    }
   }
 
   nav {
