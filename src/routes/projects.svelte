@@ -24,8 +24,8 @@
     >
       <Icon icon="logo-npm" size={24} />
     </a>
-    <Icon icon="logo-react" size={24} />
-    <Icon icon="logo-typescript" size={24} />
+    <span><Icon icon="logo-react" size={24} /></span>
+    <span><Icon icon="logo-typescript" size={24} /></span>
   </h2>
   <p>
     React Context Services is a small (less than 1kb), dependency injection and
@@ -47,8 +47,8 @@
     >
       <Icon icon="logo-npm" size={24} />
     </a>
-    <Icon icon="logo-react" size={24} />
-    <Icon icon="logo-typescript" size={24} />
+    <span><Icon icon="logo-react" size={24} /></span>
+    <span><Icon icon="logo-typescript" size={24} /></span>
   </h2>
   <p>
     React-showof is a small (less than 500b) and opinionated component to help
@@ -63,7 +63,7 @@
       target="_blank"
       rel="noopener noreferrer"><Icon icon="logo-github" size={24} /></a
     >
-    <Icon icon="logo-typescript" size={24} />
+    <span><Icon icon="logo-typescript" size={24} /></span>
   </h2>
   <p>
     Manage input state, allowing to create easy to use inputs for writing dates
@@ -77,12 +77,12 @@
       target="_blank"
       rel="noopener noreferrer"><Icon icon="logo-github" size={24} /></a
     >
-    <Icon icon="logo-react" size={24} />
-    <Icon icon="logo-typescript" size={24} />
+    <span><Icon icon="logo-react" size={24} /></span>
+    <span><Icon icon="logo-typescript" size={24} /></span>
   </h2>
   <p>
     Render simple static maps with react, supporting Polygons, Markers and
-    Overlay images Made as a side project, ever published on npm, but very used
+    Overlay images Made as a side project, never published on npm, but very used
     inside company code.
   </p>
 </div>
@@ -94,7 +94,7 @@
       target="_blank"
       rel="noopener noreferrer"><Icon icon="logo-github" size={24} /></a
     >
-    <Icon icon="logo-typescript" size={24} />
+    <span><Icon icon="logo-typescript" size={24} /></span>
   </h2>
   <p>
     Generate typescript files for models and definitions from swagger 2 json
@@ -110,11 +110,12 @@
       display: flex;
       align-items: center;
       > * {
-        margin: 0 4px;
+        margin: 0 6px;
+        line-height: 0;
       }
     }
 
-    p{
+    p {
       font-size: 14px;
     }
   }
