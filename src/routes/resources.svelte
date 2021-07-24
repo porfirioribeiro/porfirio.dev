@@ -34,28 +34,28 @@
 <h1>Resources</h1>
 
 <p>
-  From the last years of self-taught learning i've read, listen and saw so many
-  interesting things to help me grow on my career as a developer. Here i specify
-  some of them like books and podcasts. Later i hope to increment this list with
+  From the last years of self-taught learning I've read, listen and saw so many
+  interesting things to help me grow on my career as a developer. Here I specify
+  some of them like books and podcasts. Later I hope to increment this list with
   more content like videos and courses
 </p>
 
 <h3>Books</h3>
 
-<p>A list of some books i enjoyed reading and i found interesting.</p>
+<p>A list of some books I enjoyed reading and I found interesting.</p>
 
 <Resources resources={books} />
 
 <h3>Podcasts</h3>
 
 <p>
-  A list of podcasts i enjoy listen to while i'm going for a walk every morning
+  A list of podcasts I enjoy listen to while I'm going for a walk every morning
 </p>
 
 <Resources resources={podcasts} />
 
 <h3>Courses</h3>
 
-<p>Some courses i took completely or partially to increase my learning on some subjects</p>
+<p>Some courses I took completely or partially to increase my learning on some subjects</p>
 
 <Resources resources={courses} />

@@ -13,12 +13,12 @@
 <h1>Porfírio Ribeiro</h1>
 <section>
   <p>
-    Hello there! My name is Porfírio, i am a self taught software developer from
+    Hello there! My name is Porfírio, I am a self taught software developer from
     Portugal
   </p>
   <p>
     Shifted career from Farming to Development 5 years ago to follow my dream,
-    becoming a software developer. Today i am the head of development and manage
+    becoming a software developer. Today I am the head of development and manage
     a team of 3 people.
   </p>
   <p>
@@ -28,17 +28,17 @@
     with Dart and Flutter.
   </p>
   <p>
-    During this learning journey, i created some small libraries that i share on
+    During this learning journey, I created some small libraries that I share on
     <a href="https://github.com/porfirioribeiro" target="_blank">GitHub</a> and
     <a href="https://www.npmjs.com/~porfirio" target="_blank">NPM</a>
-    and collected some <a href="/resources">resources</a> i want to share.
+    and collected some <a href="/resources">resources</a> I want to share.
   </p>
   <p>
     My first (and only) public speaking was at a <a
       href="https://www.youtube.com/watch?v=X9vE-0qFAJI"
       target="_blank"
       rel="noopener noreferrer">meetup</a
-    > where i talk about a investigation i was doing with Preact by adding a new
+    > where I talk about a investigation I was doing with Preact by adding a new
     API to write components based on Vue Composition API.
   </p>
   <p>

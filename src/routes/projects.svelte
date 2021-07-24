@@ -5,7 +5,7 @@
 <h1>Projects</h1>
 
 <p>
-  Over the time i've been creating some small projects as learning tools or to
+  Over the time I've been creating some small projects as learning tools or to
   later use as part of my daily job
 </p>
 
