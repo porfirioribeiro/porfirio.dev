@@ -12,10 +12,12 @@
 <h3>Working with:</h3>
 <ul>
   <li>React with Typescript</li>
-  <li>SCSS/PostCSS/CSS Modules</li>
-  <li>Spring Boot with Java/Kotlin</li>
+  <li>SCSS / PostCSS / CSS Modules</li>
+  <li>Spring Boot with Java / Kotlin</li>
+  <li>Spring webmvc / Spring webflux</li>
   <li>PostgreSQL</li>
-  <li>Microservices with Docker/K8s</li>
+  <li>Hibernate / JPA /R2DBC</li>
+  <li>Microservices with Docker / K8s</li>
   <li>Firebase</li>
   <li>Flutter with Dart</li>
 </ul>
@@ -23,15 +25,15 @@
 <h3>Having fun and exploring:</h3>
 <ul>
   <li>Deno</li>
-  <li>Svelte/kit</li>
+  <li>Svelte / Svelte-kit</li>
   <li>Reactive-Streams and RSocket</li>
   <li>Rust (SQLx, actix-web)</li>
 </ul>
 
 <style lang="scss">
-    ul {
-        padding: 0;
-    }
+  ul {
+    padding: 0;
+  }
   li {
     line-height: 1.8;
     list-style: none;

@@ -5,7 +5,6 @@
   import { podcasts } from "$lib/resources/podcasts";
   import { courses } from "$lib/resources/courses";
 
-
   export function load() {
     return {
       props: {
@@ -56,6 +55,9 @@
 
 <h3>Courses</h3>
 
-<p>Some courses I took completely or partially to increase my learning on some subjects</p>
+<p>
+  Some courses I took completely or partially to increase my learning on some
+  subjects
+</p>
 
 <Resources resources={courses} />
