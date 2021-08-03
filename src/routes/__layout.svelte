@@ -1,8 +1,10 @@
 <script lang="ts">
   import Header from "$lib/Header/index.svelte";
+  import GoogleAnalytics from "$lib/components/GoogleAnalytics.svelte";
   import "../app.scss";
 </script>
 
+<GoogleAnalytics id="G-DNHH4P4DFW" />
 <Header />
 
 <main>
