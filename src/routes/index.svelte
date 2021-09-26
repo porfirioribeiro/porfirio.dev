@@ -6,8 +6,8 @@
 </script>
 
 <svelte:head>
-  <title>Home</title>
-  <meta name="description" content="porfirio.dev - Home" />
+  <title>Porfírio Ribeiro</title>
+  <meta name="description" content="A website about the work of a software developer interested in all things about tech" />
 </svelte:head>
 
 <h1>Porfírio Ribeiro</h1>
@@ -29,8 +29,17 @@
   </p>
   <p>
     During this learning journey, I created some small libraries that I share on
-    <a href="https://github.com/porfirioribeiro" target="_blank">GitHub</a> and
-    <a href="https://www.npmjs.com/~porfirio" target="_blank">NPM</a>
+    <a
+      href="https://github.com/porfirioribeiro"
+      target="_blank"
+      rel="noopener noreferrer">GitHub</a
+    >
+    and
+    <a
+      href="https://www.npmjs.com/~porfirio"
+      target="_blank"
+      rel="noopener noreferrer">NPM</a
+    >
     and collected some <a href="/resources">resources</a> I want to share.
   </p>
   <p>

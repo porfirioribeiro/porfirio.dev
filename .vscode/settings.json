@@ -5,6 +5,8 @@
 		//ignore common HTML stuff that fails on spell check
 		"noopener",
 		"noreferrer",
-		"prerender"
+		"prerender",
+		// words that should be on dictionary...
+		"Porfírio"
 	]
 }
