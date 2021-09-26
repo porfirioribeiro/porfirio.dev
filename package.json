@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
+		"postbuild": "svelte-sitemap --domain https://porfirio.dev",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -27,6 +28,7 @@
 		"svelte": "^3.43.0",
 		"svelte-check": "^2.2.6",
 		"svelte-preprocess": "^4.9.5",
+		"svelte-sitemap": "^2.1.1",
 		"tslib": "^2.3.1",
 		"typescript": "^4.4.3"
 	},
