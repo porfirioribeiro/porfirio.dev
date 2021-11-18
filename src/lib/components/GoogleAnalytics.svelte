@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { page } from "$app/stores";
 
   export let id: string;
@@ -23,4 +23,4 @@
 
 <svelte:head>
   <script async src="https://www.googletagmanager.com/gtag/js?id={id}"></script>
-</svelte:head>
+</svelte:head> -->
