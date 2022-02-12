@@ -20,16 +20,16 @@
     </button>
     <nav>
       <ul>
-        <li class:active={$page.path === "/"}>
+        <li class:active={$page.url.pathname === "/"}>
           <a sveltekit:prefetch href="/">Home</a>
         </li>
-        <li class:active={$page.path === "/projects"}>
+        <li class:active={$page.url.pathname === "/projects"}>
           <a sveltekit:prefetch href="/projects">Projects</a>
         </li>
-        <li class:active={$page.path === "/skills"}>
+        <li class:active={$page.url.pathname === "/skills"}>
           <a sveltekit:prefetch href="/skills">Skills</a>
         </li>
-        <li class:active={$page.path === "/resources"}>
+        <li class:active={$page.url.pathname === "/resources"}>
           <a sveltekit:prefetch href="/resources">Resources</a>
         </li>
       </ul>
