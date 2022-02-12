@@ -18,11 +18,6 @@
 
 <script lang="ts">
   import Resources from "$lib/resources/index.svelte";
-  import type { ResourceShape } from "$lib/resources/types";
-
-  export let books: ResourceShape[];
-  export let podcasts: ResourceShape[];
-  export let courses: ResourceShape[];
 </script>
 
 <svelte:head>

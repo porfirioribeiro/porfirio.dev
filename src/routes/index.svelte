@@ -7,7 +7,10 @@
 
 <svelte:head>
   <title>Porfírio Ribeiro</title>
-  <meta name="description" content="A website about the work of a software developer interested in all things about tech" />
+  <meta
+    name="description"
+    content="A website about the work of a software developer interested in all things about tech"
+  />
 </svelte:head>
 
 <h1>Porfírio Ribeiro</h1>
