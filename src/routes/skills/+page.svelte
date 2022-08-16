@@ -1,7 +1,3 @@
-<script context="module">
-  export const prerender = true;
-</script>
-
 <svelte:head>
   <title>Skills</title>
   <meta name="description" content="porfirio.dev - Skills" />

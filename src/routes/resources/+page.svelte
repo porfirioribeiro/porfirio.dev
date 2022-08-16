@@ -1,23 +1,8 @@
-<script context="module" lang="ts">
-  export const prerender = true;
-
-  import { books } from "$lib/resources/books";
-  import { podcasts } from "$lib/resources/podcasts";
-  import { courses } from "$lib/resources/courses";
-
-  export function load() {
-    return {
-      props: {
-        books,
-        podcasts,
-        courses,
-      },
-    };
-  }
-</script>
-
 <script lang="ts">
   import Resources from "$lib/resources/index.svelte";
+  import type { PageData } from "./$types";
+
+  export let data: PageData;
 </script>
 
 <svelte:head>
@@ -38,7 +23,7 @@
 
 <p>A list of some books I enjoyed reading and I found interesting.</p>
 
-<Resources resources={books} />
+<Resources resources={data.books} />
 
 <h3>Podcasts</h3>
 
@@ -46,7 +31,7 @@
   A list of podcasts I enjoy listen to while I'm going for a walk every morning
 </p>
 
-<Resources resources={podcasts} />
+<Resources resources={data.podcasts} />
 
 <h3>Courses</h3>
 
@@ -55,4 +40,4 @@
   subjects
 </p>
 
-<Resources resources={courses} />
+<Resources resources={data.courses} />
