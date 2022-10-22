@@ -10,9 +10,9 @@
     </a>
   </div>
 
-  <div class="menu-wrapper">
+  <div class="menu-wrapper" tabindex="-1">
     <button>
-      <svg width={24} height={24} view-port="0 0 24 24" fill="white">
+      <svg width={24} height={24} viewBox="0 0 24 24" fill="white">
         <rect x={0} y={2} width={24} height={4} />
         <rect x={0} y={10} width={24} height={4} />
         <rect x={0} y={18} width={24} height={4} />
