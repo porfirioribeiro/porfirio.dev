@@ -4,8 +4,7 @@ import { books } from "$lib/resources/books";
 import { podcasts } from "$lib/resources/podcasts";
 import { courses } from "$lib/resources/courses";
 
-import type { PageServerLoad } from './$types';
-
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = () => {
   return {

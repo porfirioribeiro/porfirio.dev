@@ -11,7 +11,7 @@
 
 <footer>
   <p>
-    <a href="/about" sveltekit:prefetch>Over-engineered</a> with
+    <a href="/about">Over-engineered</a> with
     <a href="https://kit.svelte.dev" target="_blank" rel="noopener noreferrer"
       >SvelteKit</a
     > by Porfírio Ribeiro

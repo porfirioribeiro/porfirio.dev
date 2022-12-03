@@ -21,16 +21,16 @@
     <nav>
       <ul>
         <li class:active={$page.url.pathname === "/"}>
-          <a sveltekit:prefetch href="/">Home</a>
+          <a href="/">Home</a>
         </li>
         <li class:active={$page.url.pathname === "/projects"}>
-          <a sveltekit:prefetch href="/projects">Projects</a>
+          <a href="/projects">Projects</a>
         </li>
         <li class:active={$page.url.pathname === "/skills"}>
-          <a sveltekit:prefetch href="/skills">Skills</a>
+          <a href="/skills">Skills</a>
         </li>
         <li class:active={$page.url.pathname === "/resources"}>
-          <a sveltekit:prefetch href="/resources">Resources</a>
+          <a href="/resources">Resources</a>
         </li>
       </ul>
     </nav>
