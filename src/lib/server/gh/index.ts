@@ -46,7 +46,24 @@ function ghRequest<T>(
       Accept: `application/vnd.github${mtExt}+json`,
       "X-GitHub-Api-Version": "2022-11-28",
     },
-  }).then((r) => r.json()) as Promise<T>;
+  }).then(async (r) => {
+    console.log(
+      "ghRequest",
+      r.ok,
+      r.status,
+      r.statusText,
+      Object.fromEntries(r.headers.entries())
+    );
+
+    try {
+      return r.json();
+    } catch (e) {
+      console.error("ghRequest", e);
+      console.log("ghRequest", await r.text());
+
+      throw e;
+    }
+  }) as Promise<T>;
 }
 
 export async function getAllBlogPosts(
