@@ -54,12 +54,14 @@ function ghRequest<T>(
       r.statusText,
       Object.fromEntries(r.headers.entries())
     );
+    if (!r.ok) {
+      console.log("raw text", await r.text());
+    }
 
     try {
       return r.json();
     } catch (e) {
       console.error("ghRequest", e);
-      console.log("ghRequest", await r.text());
 
       throw e;
     }
