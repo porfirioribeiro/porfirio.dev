@@ -45,6 +45,7 @@ function ghRequest<T>(
       Authorization: `Bearer ${GITHUB_TOKEN}`,
       Accept: `application/vnd.github${mtExt}+json`,
       "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": "porfirio.dev-Api",
     },
   }).then(async (r) => {
     console.log(
