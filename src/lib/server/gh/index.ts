@@ -36,7 +36,11 @@ function ghRequest<T>(
   { mediaType = "json" }: GHRequestOptions = {}
 ) {
   const mtExt = mediaType == "json" ? "" : `.${mediaType}`;
-  return fetch(`https://api.github.com/repos/${owner}/${repo}/${path}`, {
+  const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
+  // TODO remove the token from logs
+  console.log("ghRequest", url, GITHUB_TOKEN);
+
+  return fetch(url, {
     headers: {
       Authorization: `Bearer ${GITHUB_TOKEN}`,
       Accept: `application/vnd.github${mtExt}+json`,
