@@ -6,3 +6,5 @@ node_modules
 /functions
 .netlify
 .history
+
+.env.local
