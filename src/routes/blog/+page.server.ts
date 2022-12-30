@@ -1,8 +1,6 @@
-import { getAllBlogPosts } from "$lib/server/gh";
+import { createGH } from "$lib/server/gh";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const posts = await getAllBlogPosts();
-
-  return { posts };
+export const load: PageServerLoad = async (event) => {
+  return { posts: createGH(event).getAllBlogPosts() };
 };

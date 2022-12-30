@@ -8,6 +8,7 @@ import type {
   BlogPostShared,
   BlogTag,
 } from "$lib/types/blog";
+import type { RequestEvent } from "@sveltejs/kit";
 
 // export const octokit = new Octokit({
 //   auth: GITHUB_TOKEN,
@@ -27,66 +28,65 @@ type GetPostsOptions = {
 const owner = "porfirioribeiro";
 const repo = "porfirio.dev";
 
-interface GHRequestOptions {
-  mediaType?: "json" | "raw" | "text" | "html" | "full";
-}
+export function createGH({ fetch }: RequestEvent) {
+  interface GHRequestOptions {
+    mediaType?: "json" | "raw" | "text" | "html" | "full";
+  }
 
-function ghRequest<T>(
-  path: string,
-  { mediaType = "json" }: GHRequestOptions = {}
-) {
-  const mtExt = mediaType == "json" ? "" : `.${mediaType}`;
-  const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
-  console.log("GET", url);
+  function ghRequest<T>(
+    path: string,
+    { mediaType = "json" }: GHRequestOptions = {}
+  ) {
+    const mtExt = mediaType == "json" ? "" : `.${mediaType}`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
+    console.log("GET", url);
 
-  return fetch(url, {
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      Accept: `application/vnd.github${mtExt}+json`,
-      "X-GitHub-Api-Version": "2022-11-28",
-      "User-Agent": "porfirio.dev-Api",
+    return fetch(url, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: `application/vnd.github${mtExt}+json`,
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "porfirio.dev-Api",
+      },
+    }).then(async (r) => {
+      if (!r.ok) {
+        console.error({
+          url,
+          status: r.status,
+          statusText: r.statusText,
+          body: await r.text(),
+        });
+      }
+      return r.json();
+    }) as Promise<T>;
+  }
+
+  return {
+    async getAllBlogPosts({ tag }: GetPostsOptions = {}) {
+      // only issues with the $article label (and optionally the tag)
+      const labels = tag ? `$article,${tag}` : "$article";
+      // only isses created by the repository owner
+      const r = await ghRequest<GHIssue[]>(
+        `issues?labels=${labels}&creator=${owner}`
+      );
+      return r.map(mapToBlogPostItem);
     },
-  }).then(async (r) => {
-    if (!r.ok) {
-      console.error({
-        url,
-        status: r.status,
-        statusText: r.statusText,
-        body: await r.text(),
-      });
-    }
-    return r.json();
-  }) as Promise<T>;
-}
+    async getLabelByName(name: string) {
+      const r = await ghRequest<GHLabel>(`labels/${name}`);
 
-export async function getAllBlogPosts(
-  { tag }: GetPostsOptions = {} //
-): Promise<BlogPostItem[]> {
-  // only issues with the $article label (and optionally the tag)
-  const labels = tag ? `$article,${tag}` : "$article";
-  // only isses created by the repository owner
-  const r = await ghRequest<GHIssue[]>(
-    `issues?labels=${labels}&creator=${owner}`
-  );
-  return r.map(mapToBlogPostItem);
-}
+      return mapLabelToTag(r);
+    },
+    async getAllTags(): Promise<BlogTag[]> {
+      const r = await ghRequest<GHLabel[]>(`labels`);
 
-export async function getLabelByName(name: string) {
-  const r = await ghRequest<GHLabel>(`labels/${name}`);
+      return r.map(mapLabelToTag).filter(isValidTag);
+    },
+    async getBlogPostById(id: number): Promise<BlogPostFull> {
+      const r = await ghRequest<GHIssue>(`issues/${id}`, { mediaType: "html" });
 
-  return mapLabelToTag(r);
-}
-
-export async function getAllTags(): Promise<BlogTag[]> {
-  const r = await ghRequest<GHLabel[]>(`labels`);
-
-  return r.map(mapLabelToTag).filter(isValidTag);
-}
-
-export async function getBlogPostById(id: number): Promise<BlogPostFull> {
-  const r = await ghRequest<GHIssue>(`issues/${id}`, { mediaType: "html" });
-
-  return mapToBlogPostFull(r);
+      return mapToBlogPostFull(r);
+    },
+  };
 }
 
 function mapToBlogPostShared(issue: GHIssue): BlogPostShared {

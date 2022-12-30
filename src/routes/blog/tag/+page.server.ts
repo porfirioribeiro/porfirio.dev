@@ -1,8 +1,6 @@
-import { getAllTags } from "$lib/server/gh";
+import { createGH } from "$lib/server/gh";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async () => {
-  const tags = await getAllTags();
-
-  return { tags };
+export const load: PageServerLoad = async (event) => {
+  return { tags: createGH(event).getAllTags() };
 };
