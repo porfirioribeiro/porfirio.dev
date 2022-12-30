@@ -37,8 +37,7 @@ function ghRequest<T>(
 ) {
   const mtExt = mediaType == "json" ? "" : `.${mediaType}`;
   const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
-  // TODO remove the token from logs
-  console.log("ghRequest", url, GITHUB_TOKEN);
+  console.log("GET", url);
 
   return fetch(url, {
     headers: {
@@ -48,24 +47,15 @@ function ghRequest<T>(
       "User-Agent": "porfirio.dev-Api",
     },
   }).then(async (r) => {
-    console.log(
-      "ghRequest",
-      r.ok,
-      r.status,
-      r.statusText,
-      Object.fromEntries(r.headers.entries())
-    );
     if (!r.ok) {
-      console.log("raw text", await r.text());
+      console.error({
+        url,
+        status: r.status,
+        statusText: r.statusText,
+        body: await r.text(),
+      });
     }
-
-    try {
-      return r.json();
-    } catch (e) {
-      console.error("ghRequest", e);
-
-      throw e;
-    }
+    return r.json();
   }) as Promise<T>;
 }
 
