@@ -3,13 +3,9 @@ import type { Handle, HandleFetch } from "@sveltejs/kit";
 export const handle: Handle = async ({ event, resolve }) => {
   const response = await resolve(event);
 
-  response.headers.set("Cache-Control", "max-age=10, s-maxage=60");
+  response.headers.set("Cache-Control", "public, max-age=30, s-maxage=86400");
 
-  console.log(
-    "handle",
-    event.url.pathname,
-    Object.fromEntries(response.headers.entries())
-  );
+  console.log("handle", event.url.pathname);
 
   return response;
 };
