@@ -32,6 +32,9 @@
         <li class:active={$page.url.pathname === "/resources"}>
           <a href="/resources">Resources</a>
         </li>
+        <li class:active={$page.url.pathname.startsWith("/blog")}>
+          <a href="/blog">Blog</a>
+        </li>
       </ul>
     </nav>
   </div>
