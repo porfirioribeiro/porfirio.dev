@@ -14,6 +14,7 @@ export interface BlogPostShared {
   created_at: string;
   tags: BlogTag[];
   keywords: string;
+  author: BlogPostAuthor;
 }
 
 export interface BlogPostItem extends BlogPostShared {
@@ -23,7 +24,23 @@ export interface BlogPostItem extends BlogPostShared {
 
 export interface BlogPostFull extends BlogPostShared {
   body: string;
-  blocks: { twitter: boolean; code: boolean };
+  blocks: { twitter?: true; code?: true };
   description?: string;
   image?: string;
+}
+
+export interface BlogPostAuthor {
+  name: string;
+  ghUrl: string;
+  avatar?: string;
+}
+
+export interface BlogPostComment {
+  id: number;
+  ghUrl: string;
+  author: BlogPostAuthor;
+  body: string;
+  created_at: string;
+  blocks: { twitter?: true; code?: true };
+  // reactions: number;
 }

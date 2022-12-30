@@ -3,9 +3,11 @@ import mkSlug from "slug";
 
 import { GITHUB_TOKEN } from "$env/static/private";
 import type {
+  BlogPostAuthor,
   BlogPostFull,
   BlogPostItem,
   BlogPostShared,
+  BlogPostComment,
   BlogTag,
 } from "$lib/types/blog";
 import type { RequestEvent } from "@sveltejs/kit";
@@ -20,6 +22,11 @@ type GHIssue = Awaited<ReturnType<Octokit["rest"]["issues"]["get"]>>["data"];
 type GHLabel = Partial<
   Awaited<ReturnType<Octokit["rest"]["issues"]["getLabel"]>>["data"]
 >;
+type GHIssueComment = Partial<
+  Awaited<ReturnType<Octokit["rest"]["issues"]["getComment"]>>["data"]
+>;
+
+type GHUser = GHIssue["user"];
 
 type GetPostsOptions = {
   tag?: string;
@@ -82,9 +89,32 @@ export function createGH({ fetch }: RequestEvent) {
       return r.map(mapLabelToTag).filter(isValidTag);
     },
     async getBlogPostById(id: number): Promise<BlogPostFull> {
-      const r = await ghRequest<GHIssue>(`issues/${id}`, { mediaType: "html" });
+      const issue = await ghRequest<GHIssue>(`issues/${id}`, {
+        mediaType: "html",
+      });
 
-      return mapToBlogPostFull(r);
+      return {
+        ...mapToBlogPostShared(issue),
+        ...reparse(issue.body_html),
+      };
+    },
+    async getCommentsForBlogPost(id: number): Promise<BlogPostComment[]> {
+      const comments = await ghRequest<GHIssueComment[]>(
+        `issues/${id}/comments`,
+        {
+          mediaType: "html",
+        }
+      );
+
+      console.log(formateTimeAgo(comments[0].created_at));
+
+      return comments.map<BlogPostComment>((c) => ({
+        id: c.id,
+        author: mapUserToAuthor(c.user),
+        created_at: c.created_at,
+        ghUrl: c.html_url,
+        ...reparse(c.body_html),
+      }));
     },
   };
 }
@@ -103,16 +133,45 @@ function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
     slug,
     link: `/blog/${issue.number}/${slug}`,
     ghUrl: issue.html_url,
-    created_at: issue.created_at.split("T")[0],
+    created_at: mapDate(issue.created_at),
     tags: tags,
     keywords: tags.map((t) => t.name).join(", "),
+    author: mapUserToAuthor(issue.user),
   };
 }
 
 const isValidTag = (t: BlogTag) => !t.name.startsWith("$");
 
+const mapDate = (created_at: string) => created_at.split("T")[0];
+
+function formateTimeAgo(date: string) {
+  const d = new Date(date);
+  const now = new Date();
+  const diff = now.getTime() - d.getTime();
+  const diffYearn = Math.floor(diff / (1000 * 3600 * 24 * 365));
+  const diffDays = Math.floor(diff / (1000 * 3600 * 24));
+  const diffHours = Math.floor(diff / (1000 * 3600));
+  const diffMinutes = Math.floor(diff / (1000 * 60));
+  const diffSeconds = Math.floor(diff / 1000);
+
+  if (diffYearn > 0) return `${diffYearn} years ago`;
+  if (diffDays > 0) return `${diffDays} days ago`;
+  if (diffHours > 0) return `${diffHours} hours ago`;
+  if (diffMinutes > 0) return `${diffMinutes} minutes ago`;
+  if (diffSeconds > 0) return `${diffSeconds} seconds ago`;
+  return "just now";
+}
+
 function mapLabelToTag({ name, description, color }: GHLabel): BlogTag {
   return { name, description, link: "/blog/tag/" + name, color: `#${color}` };
+}
+
+function mapUserToAuthor({
+  login,
+  html_url,
+  avatar_url,
+}: GHUser): BlogPostAuthor {
+  return { name: login, ghUrl: html_url, avatar: avatar_url };
 }
 
 function mapToBlogPostItem(issue: GHIssue): BlogPostItem {
@@ -123,19 +182,13 @@ function mapToBlogPostItem(issue: GHIssue): BlogPostItem {
   };
 }
 
-function mapToBlogPostFull(issue: GHIssue): BlogPostFull {
-  return {
-    ...mapToBlogPostShared(issue),
-    ...reparse(issue.body_html),
-  };
-}
-
 function reparse(body_html: string) {
-  let hasTweets = false;
   let description: string | undefined;
+  const blocks: BlogPostFull["blocks"] = {};
+
   const body = body_html
     .replace(/<a href="(.*)" rel="nofollow">#twitter<\/a>/g, (_, url) => {
-      hasTweets = true;
+      blocks.twitter = true;
       return `
     <blockquote class="twitter-tweet" data-lang="en" data-dnt="true" data-theme="dark">
     <a href="${url}" target="_blank">Tweet loading...</a></blockquote>
@@ -156,12 +209,11 @@ function reparse(body_html: string) {
       }
     );
 
+  if (body_html.includes('<div class="highlight')) blocks.code = true;
+
   return {
     body,
     description,
-    blocks: {
-      twitter: hasTweets,
-      code: body_html.includes('<div class="highlight'),
-    },
+    blocks,
   };
 }
