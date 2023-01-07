@@ -4,6 +4,7 @@
   import TagChips from "$lib/components/TagChips.svelte";
   import type { PageData } from "./$types";
   import Markdown from "$lib/components/Markdown.svelte";
+  import Reactions from "$lib/components/Reactions.svelte";
 
   export let data: PageData;
 </script>
@@ -28,6 +29,7 @@
 <article>
   <h1>{data.post.title}</h1>
   <Markdown body={data.post.body} />
+  <Reactions reactions={data.post.reactions} />
 
   <div>
     <time>{data.post.created_at}</time>
@@ -51,8 +53,17 @@
       </a>
 
       <Markdown body={comment.body} />
+      <Reactions reactions={comment.reactions} />
     </article>
   {/each}
+
+  <a
+    href={data.post.ghUrl + "#issuecomment-new"}
+    target="_blank"
+    rel="noreferrer"
+  >
+    Add a comment
+  </a>
 </section>
 
 <style lang="scss">

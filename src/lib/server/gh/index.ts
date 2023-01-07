@@ -12,9 +12,18 @@ import type {
 } from "$lib/types/blog";
 import type { RequestEvent } from "@sveltejs/kit";
 
-// export const octokit = new Octokit({
-//   auth: GITHUB_TOKEN,
-// });
+type RT = keyof Omit<GHIssue["reactions"], "url" | "total_count">;
+
+const reactionIcons: Record<RT, string> = {
+  "+1": "👍",
+  "-1": "👎",
+  laugh: "😄",
+  hooray: "🎉",
+  confused: "😕",
+  heart: "❤️",
+  rocket: "🚀",
+  eyes: "👀",
+};
 
 //// posts
 
@@ -96,6 +105,7 @@ export function createGH({ fetch }: RequestEvent) {
       return {
         ...mapToBlogPostShared(issue),
         ...reparse(issue.body_html),
+        reactions: mapReactions(issue.reactions),
       };
     },
     async getCommentsForBlogPost(id: number): Promise<BlogPostComment[]> {
@@ -106,17 +116,23 @@ export function createGH({ fetch }: RequestEvent) {
         }
       );
 
-      console.log(formateTimeAgo(comments[0].created_at));
-
       return comments.map<BlogPostComment>((c) => ({
         id: c.id,
         author: mapUserToAuthor(c.user),
         created_at: c.created_at,
         ghUrl: c.html_url,
+        reactions: mapReactions(c.reactions),
         ...reparse(c.body_html),
       }));
     },
   };
+}
+
+function mapReactions(reactionMap: GHIssue["reactions"]) {
+  return Object.entries(reactionIcons).flatMap(([name, icon]) => {
+    const count = reactionMap[name];
+    return count ? [{ name, count, icon }] : [];
+  });
 }
 
 function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
@@ -143,24 +159,6 @@ function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
 const isValidTag = (t: BlogTag) => !t.name.startsWith("$");
 
 const mapDate = (created_at: string) => created_at.split("T")[0];
-
-function formateTimeAgo(date: string) {
-  const d = new Date(date);
-  const now = new Date();
-  const diff = now.getTime() - d.getTime();
-  const diffYearn = Math.floor(diff / (1000 * 3600 * 24 * 365));
-  const diffDays = Math.floor(diff / (1000 * 3600 * 24));
-  const diffHours = Math.floor(diff / (1000 * 3600));
-  const diffMinutes = Math.floor(diff / (1000 * 60));
-  const diffSeconds = Math.floor(diff / 1000);
-
-  if (diffYearn > 0) return `${diffYearn} years ago`;
-  if (diffDays > 0) return `${diffDays} days ago`;
-  if (diffHours > 0) return `${diffHours} hours ago`;
-  if (diffMinutes > 0) return `${diffMinutes} minutes ago`;
-  if (diffSeconds > 0) return `${diffSeconds} seconds ago`;
-  return "just now";
-}
 
 function mapLabelToTag({ name, description, color }: GHLabel): BlogTag {
   return { name, description, link: "/blog/tag/" + name, color: `#${color}` };

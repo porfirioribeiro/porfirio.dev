@@ -27,6 +27,7 @@ export interface BlogPostFull extends BlogPostShared {
   blocks: { twitter?: true; code?: true };
   description?: string;
   image?: string;
+  reactions: { name: string; count: number; icon: string }[];
 }
 
 export interface BlogPostAuthor {
@@ -42,5 +43,5 @@ export interface BlogPostComment {
   body: string;
   created_at: string;
   blocks: { twitter?: true; code?: true };
-  // reactions: number;
+  reactions: { name: string; count: number; icon: string }[];
 }
