@@ -12,8 +12,6 @@ export const load: PageServerLoad = async (event) => {
 
   const comments = await gh.getCommentsForBlogPost(post.number);
 
-  console.log(comments);
-
   comments.forEach((c) => Object.assign(post.blocks, c.blocks));
 
   return { post, comments };
