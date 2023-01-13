@@ -14,7 +14,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-cloudflare": "1.0.1",
-		"@sveltejs/kit": "1.0.11",
+		"@sveltejs/kit": "1.0.12",
 		"@types/cookie": "^0.5.1",
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.48.1",
