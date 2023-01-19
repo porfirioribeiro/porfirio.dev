@@ -1,8 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@sveltejs/adapter-cloudflare': 1.0.3
-  '@sveltejs/kit': 1.1.2
+  '@sveltejs/adapter-cloudflare': 1.0.4
+  '@sveltejs/kit': 1.1.4
   '@types/cookie': ^0.5.1
   '@typescript-eslint/eslint-plugin': ^5.48.2
   '@typescript-eslint/parser': ^5.48.2
@@ -28,8 +28,8 @@ dependencies:
   slug: 9.0.0-beta.1
 
 devDependencies:
-  '@sveltejs/adapter-cloudflare': 1.0.3_@sveltejs+kit@1.1.2
-  '@sveltejs/kit': 1.1.2_svelte@3.55.1+vite@4.0.4
+  '@sveltejs/adapter-cloudflare': 1.0.4_@sveltejs+kit@1.1.4
+  '@sveltejs/kit': 1.1.4_svelte@3.55.1+vite@4.0.4
   '@types/cookie': 0.5.1
   '@typescript-eslint/eslint-plugin': 5.48.2_caon6io6stgpr7lz2rtbhekxqy
   '@typescript-eslint/parser': 5.48.2_7uibuqfxkfaozanbtbziikiqje
@@ -334,7 +334,7 @@ packages:
       '@octokit/oauth-app': 4.2.0
       '@octokit/plugin-paginate-rest': 5.0.1_@octokit+core@4.1.0
       '@octokit/types': 8.1.1
-      '@octokit/webhooks': 10.6.2
+      '@octokit/webhooks': 10.7.0
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -564,17 +564,17 @@ packages:
     engines: {node: '>= 14'}
     dev: false
 
-  /@octokit/webhooks-types/6.7.0:
-    resolution: {integrity: sha512-bykm7UkSnxmb2uhSfcLM1Pity/LQ6ZBSdzy9HU0vXjR+2g+tzlmRhXb7Go8oj0TlgO+vDrTivGXju6zkzOGKjA==}
+  /@octokit/webhooks-types/6.10.0:
+    resolution: {integrity: sha512-lDNv83BeEyxxukdQ0UttiUXawk9+6DkdjjFtm2GFED+24IQhTVaoSbwV9vWWKONyGLzRmCQqZmoEWkDhkEmPlw==}
     dev: false
 
-  /@octokit/webhooks/10.6.2:
-    resolution: {integrity: sha512-C45+ZkNngFQ+OvRxHaBY4ryB+/CvB44/gCXp3OciulUwbAHt1fznhSWOkctsi2FTnbowr4CfQQBXMJhJGopb5g==}
+  /@octokit/webhooks/10.7.0:
+    resolution: {integrity: sha512-zZBbQMpXXnK/ki/utrFG/TuWv9545XCSLibfDTxrYqR1PmU6zel02ebTOrA7t5XIGHzlEOc/NgISUIBUe7pMFA==}
     engines: {node: '>= 14'}
     dependencies:
       '@octokit/request-error': 3.0.2
       '@octokit/webhooks-methods': 3.0.2
-      '@octokit/webhooks-types': 6.7.0
+      '@octokit/webhooks-types': 6.10.0
       aggregate-error: 3.1.0
     dev: false
 
@@ -582,19 +582,19 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@sveltejs/adapter-cloudflare/1.0.3_@sveltejs+kit@1.1.2:
-    resolution: {integrity: sha512-VEovpRDZc/5xS8NJhGoLhHIuP8Li4+uKFp29R6ndw1eI9j8Dcgwr6tO4axmsgsCnSkkWj7U5j3iAyh6jaZ2A7g==}
+  /@sveltejs/adapter-cloudflare/1.0.4_@sveltejs+kit@1.1.4:
+    resolution: {integrity: sha512-fLZko2/6mq6ZZXhjfi5e7PFPR4IBSQ0UB5P9yt1ImczATFIH4mxqiXmdHpsJhEDDYOBqoEutgFYQdnndK0F5kQ==}
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
       '@cloudflare/workers-types': 4.20221111.1
-      '@sveltejs/kit': 1.1.2_svelte@3.55.1+vite@4.0.4
+      '@sveltejs/kit': 1.1.4_svelte@3.55.1+vite@4.0.4
       esbuild: 0.16.17
       worktop: 0.8.0-next.14
     dev: true
 
-  /@sveltejs/kit/1.1.2_svelte@3.55.1+vite@4.0.4:
-    resolution: {integrity: sha512-bykE1E79i7E757i3yP+N8hSuT63AET5rY7yhqz8do2EgPXsWozwJiQS6wsPlKn7bFDv+3LGeFGV3qSbVo3GmTw==}
+  /@sveltejs/kit/1.1.4_svelte@3.55.1+vite@4.0.4:
+    resolution: {integrity: sha512-FHt8j8PgwhgeA41WTJfD8yQdOmzRY1v6ORtyXjzbzIZ+106LTclRpywnFoKxACEilAQHdGLAivVf9bRHkW1LLQ==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
@@ -1756,8 +1756,8 @@ packages:
     hasBin: true
     dev: true
 
-  /punycode/2.2.0:
-    resolution: {integrity: sha512-LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==}
+  /punycode/2.3.0:
+    resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
     dev: true
 
@@ -2130,7 +2130,7 @@ packages:
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
-      punycode: 2.2.0
+      punycode: 2.3.0
     dev: true
 
   /vite/4.0.4_sass@1.57.1:
