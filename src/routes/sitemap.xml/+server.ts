@@ -2,21 +2,16 @@ import type { RequestHandler } from "./$types";
 import { createGH } from "$lib/server/gh";
 
 export const GET: RequestHandler = async (event) => {
-  console.log(event);
-
   const gh = createGH(event);
 
   const [posts, tags] = await Promise.all([
     gh.getAllBlogPosts(),
     gh.getAllTags(),
   ]);
-  console.log(posts, tags);
 
   const x = [...posts, ...tags].map(
     (post) => `<url><loc>https://porfirio.dev${post.link}</loc></url>`
   );
-
-  console.log(x);
 
   return new Response(
     /*xml*/ `
