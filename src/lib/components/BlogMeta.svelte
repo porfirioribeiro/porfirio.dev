@@ -21,5 +21,4 @@
   <meta property="article:author" content="Porfírio" />
   <meta property="article:tag" content={post.keywords} />
   <link rel="canonical" href={post.link} />
-  <!-- <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" /> -->
 </svelte:head>
