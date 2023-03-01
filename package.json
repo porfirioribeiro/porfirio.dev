@@ -13,8 +13,8 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-cloudflare": "2.0.2",
-		"@sveltejs/kit": "1.8.6",
+		"@sveltejs/adapter-cloudflare": "2.1.0",
+		"@sveltejs/kit": "1.9.2",
 		"@types/cookie": "^0.5.1",
 		"@typescript-eslint/eslint-plugin": "^5.54.0",
 		"@typescript-eslint/parser": "^5.54.0",
