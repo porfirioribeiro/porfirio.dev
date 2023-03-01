@@ -28,6 +28,7 @@ export interface BlogPostFull extends BlogPostShared {
   description?: string;
   image?: string;
   reactions: { name: string; count: number; icon: string }[];
+  isPublished: boolean;
 }
 
 export interface BlogPostAuthor {

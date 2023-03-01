@@ -28,6 +28,9 @@
 
 <article>
   <h1>{data.post.title}</h1>
+  {#if !data.post.isPublished}
+    <em class="draft-warn">Note: this blog post is not published</em>
+  {/if}
   <Markdown body={data.post.body} />
   <Reactions reactions={data.post.reactions} />
 
@@ -73,5 +76,13 @@
       border: 1px solid white;
       padding: 1rem;
     }
+  }
+  .draft-warn {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 5px;
   }
 </style>

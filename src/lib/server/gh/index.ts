@@ -44,12 +44,19 @@ type GetPostsOptions = {
 const owner = "porfirioribeiro";
 const repo = "porfirio.dev";
 
+const enum SystemLabels {
+  Article = "$article",
+  Published = "$published",
+}
+
+const PublishedArticleLabels = [SystemLabels.Article, SystemLabels.Published];
+
 export function createGH({ fetch }: RequestEvent) {
   interface GHRequestOptions {
     mediaType?: "json" | "raw" | "text" | "html" | "full";
   }
 
-  function ghRequest<T>(
+  function ghRequestRaw(
     path: string,
     { mediaType = "json" }: GHRequestOptions = {}
   ) {
@@ -64,10 +71,14 @@ export function createGH({ fetch }: RequestEvent) {
         "X-GitHub-Api-Version": "2022-11-28",
         "User-Agent": "porfirio.dev-Api",
       },
-    }).then(async (r) => {
+    });
+  }
+
+  function ghRequest<T>(path: string, o: GHRequestOptions = {}) {
+    return ghRequestRaw(path, o).then(async (r) => {
       if (!r.ok) {
         console.error({
-          url,
+          path,
           status: r.status,
           statusText: r.statusText,
           body: await r.text(),
@@ -79,8 +90,10 @@ export function createGH({ fetch }: RequestEvent) {
 
   return {
     async getAllBlogPosts({ tag }: GetPostsOptions = {}) {
-      // only issues with the $article label (and optionally the tag)
-      const labels = tag ? `$article,${tag}` : "$article";
+      const labels = (PublishedArticleLabels as string[])
+        .concat(tag ?? [])
+        .join(",");
+
       // only isses created by the repository owner
       const r = await ghRequest<GHIssue[]>(
         `issues?labels=${labels}&creator=${owner}`
@@ -97,14 +110,23 @@ export function createGH({ fetch }: RequestEvent) {
 
       return r.map(mapLabelToTag).filter(isValidTag);
     },
-    async getBlogPostById(id: number): Promise<BlogPostFull> {
-      const issue = await ghRequest<GHIssue>(`issues/${id}`, {
+    async getBlogPostById(id: number): Promise<BlogPostFull | null> {
+      const r = await ghRequestRaw(`issues/${id}`, {
         mediaType: "html",
       });
+      if (!r.ok) return null;
+
+      const issue = (await r.json()) as GHIssue;
+
+      const labelNames = issue.labels.map(getLabelName);
+
+      if (issue.pull_request || !labelNames.includes(SystemLabels.Article))
+        return null;
 
       return {
         ...mapToBlogPostShared(issue),
         ...reparse(issue.body_html),
+        isPublished: labelNames.includes(SystemLabels.Published),
         reactions: mapReactions(issue.reactions),
       };
     },
@@ -162,6 +184,10 @@ const mapDate = (created_at: string) => created_at.split("T")[0];
 
 function mapLabelToTag({ name, description, color }: GHLabel): BlogTag {
   return { name, description, link: "/blog/tag/" + name, color: `#${color}` };
+}
+
+function getLabelName(l: GHLabel | string) {
+  return typeof l === "string" ? l : l.name;
 }
 
 function mapUserToAuthor({
