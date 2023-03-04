@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@sveltejs/adapter-cloudflare': 2.1.0
+  '@sveltejs/adapter-cloudflare': 2.2.0
   '@sveltejs/kit': 1.9.2
   '@types/cookie': ^0.5.1
   '@typescript-eslint/eslint-plugin': ^5.54.0
@@ -28,7 +28,7 @@ dependencies:
   slug: 9.0.0-beta.1
 
 devDependencies:
-  '@sveltejs/adapter-cloudflare': 2.1.0_@sveltejs+kit@1.9.2
+  '@sveltejs/adapter-cloudflare': 2.2.0_@sveltejs+kit@1.9.2
   '@sveltejs/kit': 1.9.2_svelte@3.55.1+vite@4.1.4
   '@types/cookie': 0.5.1
   '@typescript-eslint/eslint-plugin': 5.54.0_6mj2wypvdnknez7kws2nfdgupi
@@ -587,8 +587,8 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@sveltejs/adapter-cloudflare/2.1.0_@sveltejs+kit@1.9.2:
-    resolution: {integrity: sha512-1HXAk+91tlRHfovY6NIH1/ntAHOiraNe8NeoNNyMweR4tEnaIgaL1czaTfpfqXcXvaA09EFIaHBPxU2xzT92kA==}
+  /@sveltejs/adapter-cloudflare/2.2.0_@sveltejs+kit@1.9.2:
+    resolution: {integrity: sha512-B3GQtdPBLHG1eTjOUCjTOqlkTEuYbeSFFw984sEclWxNnLgj3dO6DY8pRTVyrltwNtKRG/7W+ltPVzcbcn30Dg==}
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
