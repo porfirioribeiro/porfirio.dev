@@ -35,7 +35,7 @@
   <Reactions reactions={data.post.reactions} />
 
   <div>
-    <time>{data.post.created_at}</time>
+    <time>{data.post.date}</time>
     <TagChips tags={data.post.tags} />
   </div>
 </article>

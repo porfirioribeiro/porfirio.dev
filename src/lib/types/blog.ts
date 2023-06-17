@@ -9,12 +9,15 @@ export interface BlogPostShared {
   number: number;
   title: string;
   slug: string;
+  description?: string;
+  blocks: { twitter?: true; code?: true };
   link: string;
   ghUrl: string;
-  created_at: string;
+  date: string;
   tags: BlogTag[];
   keywords: string;
   author: BlogPostAuthor;
+  body: string;
 }
 
 export interface BlogPostItem extends BlogPostShared {
@@ -23,9 +26,6 @@ export interface BlogPostItem extends BlogPostShared {
 }
 
 export interface BlogPostFull extends BlogPostShared {
-  body: string;
-  blocks: { twitter?: true; code?: true };
-  description?: string;
   image?: string;
   reactions: { name: string; count: number; icon: string }[];
   isPublished: boolean;

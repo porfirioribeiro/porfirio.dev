@@ -12,7 +12,7 @@ export const GET: RequestHandler = async (event) => {
     <title>${post.title}</title>
     <description>Keywords: ${post.keywords}</description>
     <link>${website}${post.link}</link>
-    <pubDate>${new Date(post.created_at)}</pubDate>
+    <pubDate>${new Date(post.date)}</pubDate>
     <content:encoded>
       <div style="margin-top: 50px; font-style: italic;">
         <strong>

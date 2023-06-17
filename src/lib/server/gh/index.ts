@@ -1,3 +1,4 @@
+import type { RequestEvent } from "@sveltejs/kit";
 import type { Octokit } from "octokit";
 import mkSlug from "slug";
 
@@ -10,7 +11,6 @@ import type {
   BlogPostComment,
   BlogTag,
 } from "$lib/types/blog";
-import type { RequestEvent } from "@sveltejs/kit";
 
 type RT = keyof Omit<GHIssue["reactions"], "url" | "total_count">;
 
@@ -96,7 +96,10 @@ export function createGH({ fetch }: RequestEvent) {
 
       // only isses created by the repository owner
       const r = await ghRequest<GHIssue[]>(
-        `issues?labels=${labels}&creator=${owner}`
+        `issues?labels=${labels}&creator=${owner}`,
+        {
+          mediaType: "html",
+        }
       );
       return r.map(mapToBlogPostItem);
     },
@@ -120,12 +123,15 @@ export function createGH({ fetch }: RequestEvent) {
 
       const labelNames = issue.labels.map(getLabelName);
 
-      if (issue.pull_request || !labelNames.includes(SystemLabels.Article))
+      if (
+        issue.pull_request || // not a pull request
+        issue.user.login !== owner || // only isses created by the repository owner
+        !labelNames.includes(SystemLabels.Article) // only articles
+      )
         return null;
 
       return {
         ...mapToBlogPostShared(issue),
-        ...reparse(issue.body_html),
         isPublished: labelNames.includes(SystemLabels.Published),
         reactions: mapReactions(issue.reactions),
       };
@@ -158,7 +164,9 @@ function mapReactions(reactionMap: GHIssue["reactions"]) {
 }
 
 function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
-  const slug = mkSlug(issue.title);
+  const { meta, blocks, body } = reparse(issue.body_html);
+  const slug = meta.slug || mkSlug(issue.title);
+  const date = meta.date || mapDate(issue.created_at);
 
   const tags = issue.labels.flatMap((l) => {
     if (typeof l === "string" || l.name.startsWith("$")) return [];
@@ -170,11 +178,14 @@ function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
     title: issue.title,
     slug,
     link: `/blog/${issue.number}/${slug}`,
+    description: meta.description,
     ghUrl: issue.html_url,
-    created_at: mapDate(issue.created_at),
-    tags: tags,
+    date,
+    tags,
     keywords: tags.map((t) => t.name).join(", "),
     author: mapUserToAuthor(issue.user),
+    blocks,
+    body,
   };
 }
 
@@ -207,8 +218,8 @@ function mapToBlogPostItem(issue: GHIssue): BlogPostItem {
 }
 
 function reparse(body_html: string) {
-  let description: string | undefined;
   const blocks: BlogPostFull["blocks"] = {};
+  let meta: Record<string, string> = {};
 
   const body = body_html
     .replace(/<a href="(.*)" rel="nofollow">#twitter<\/a>/g, (_, url) => {
@@ -226,9 +237,9 @@ function reparse(body_html: string) {
     .replaceAll(' dir="auto"', "")
     .replaceAll(' class=""', "")
     .replace(
-      /<div><pre lang="description"><code>([\S\s]*)<\/code><\/pre><\/div>/,
+      /<div><pre lang="sv-meta"><code>([\S\s]*)<\/code><\/pre><\/div>/,
       (_, a) => {
-        description = a;
+        meta = parseMeta(a);
         return "";
       }
     );
@@ -237,7 +248,14 @@ function reparse(body_html: string) {
 
   return {
     body,
-    description,
+    meta,
     blocks,
   };
+}
+
+const mre = /(\w+):\s*(.*)/gm;
+function parseMeta(a: string): Record<string, string> {
+  return Object.fromEntries(
+    Array.from(a.matchAll(mre), (m) => [m[1], m[2].trim()])
+  );
 }

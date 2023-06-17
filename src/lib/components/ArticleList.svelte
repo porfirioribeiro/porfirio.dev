@@ -9,10 +9,13 @@
 {#each posts as post}
   <article>
     <a class="title" href={post.link}><h3>{post.title}</h3></a>
+    {#if post.description}
+      <p class="description">{post.description}</p>
+    {/if}
     <div class="chips">
       <TagChips tags={post.tags} />
     </div>
-    <time>{post.created_at}</time>
+    <time>{post.date}</time>
     <a
       href={`${post.ghUrl}#js-timeline-progressive-loader`}
       class="meta"
@@ -31,8 +34,8 @@
     align-items: center;
     gap: 2px 8px;
     flex-wrap: wrap;
-    grid-template-areas: "title meta" "chips time";
-    grid-template-columns: auto min-content;
+    grid-template-areas: "title meta" "description time" "chips chips";
+    // grid-template-columns: auto min-content;
     margin-bottom: 1em;
     .title {
       grid-area: title;
@@ -43,6 +46,10 @@
     }
     .chips {
       grid-area: chips;
+    }
+    .description {
+      grid-area: description;
+      margin: 0.5rem 0;
     }
     time {
       grid-area: time;

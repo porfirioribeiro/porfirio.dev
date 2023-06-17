@@ -17,7 +17,7 @@
   <meta property="og:image" content={post.image} />
   <meta property="og:url" content={post.link} />
   <meta property="og:site_name" content="Porfírio dev" />
-  <meta property="article:published_time" content={post.created_at} />
+  <meta property="article:published_time" content={post.date} />
   <meta property="article:author" content="Porfírio" />
   <meta property="article:tag" content={post.keywords} />
   <link rel="canonical" href={post.link} />
