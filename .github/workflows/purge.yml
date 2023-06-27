@@ -2,7 +2,7 @@ name: Deploy my website
 on:
   issues:
   label:
-    push:
+  push:
     branches:
       - 'main'
 
