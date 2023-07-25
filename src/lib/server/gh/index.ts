@@ -58,7 +58,7 @@ export function createGH({ fetch }: RequestEvent) {
 
   function ghRequestRaw(
     path: string,
-    { mediaType = "json" }: GHRequestOptions = {}
+    { mediaType = "json" }: GHRequestOptions = {},
   ) {
     const mtExt = mediaType == "json" ? "" : `.${mediaType}`;
     const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
@@ -99,7 +99,7 @@ export function createGH({ fetch }: RequestEvent) {
         `issues?labels=${labels}&creator=${owner}`,
         {
           mediaType: "html",
-        }
+        },
       );
       return r.map(mapToBlogPostItem);
     },
@@ -141,7 +141,7 @@ export function createGH({ fetch }: RequestEvent) {
         `issues/${id}/comments`,
         {
           mediaType: "html",
-        }
+        },
       );
 
       return comments.map<BlogPostComment>((c) => ({
@@ -231,7 +231,7 @@ function reparse(body_html: string) {
     })
     .replaceAll(
       /(snippet-clipboard-content|position-relative|overflow-auto|notranslate)\s*/g,
-      ""
+      "",
     )
     .replaceAll(/ data-snippet-clipboard-copy-content="[^"]*"/gm, "")
     .replaceAll(' dir="auto"', "")
@@ -241,7 +241,7 @@ function reparse(body_html: string) {
       (_, a) => {
         meta = parseMeta(a);
         return "";
-      }
+      },
     );
 
   if (body_html.includes('<div class="highlight')) blocks.code = true;
@@ -256,6 +256,6 @@ function reparse(body_html: string) {
 const mre = /(\w+):\s*(.*)/gm;
 function parseMeta(a: string): Record<string, string> {
   return Object.fromEntries(
-    Array.from(a.matchAll(mre), (m) => [m[1], m[2].trim()])
+    Array.from(a.matchAll(mre), (m) => [m[1], m[2].trim()]),
   );
 }

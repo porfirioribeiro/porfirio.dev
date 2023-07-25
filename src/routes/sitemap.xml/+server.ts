@@ -10,7 +10,7 @@ export const GET: RequestHandler = async (event) => {
   ]);
 
   const x = [...posts, ...tags].map(
-    (post) => `<url><loc>https://porfirio.dev${post.link}</loc></url>`
+    (post) => `<url><loc>https://porfirio.dev${post.link}</loc></url>`,
   );
 
   return new Response(
@@ -50,6 +50,6 @@ export const GET: RequestHandler = async (event) => {
         "Content-Type": "application/xml",
         "Cache-Control": "public, max-age=5, s-maxage=86400",
       },
-    }
+    },
   );
 };

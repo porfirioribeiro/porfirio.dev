@@ -23,7 +23,7 @@ export const GET: RequestHandler = async (event) => {
       </div>
     </content:encoded>
   </item>
-    `
+    `,
   );
 
   return new Response(
@@ -45,6 +45,6 @@ export const GET: RequestHandler = async (event) => {
         "Content-Type": "application/xml",
         "Cache-Control": "public, max-age=5, s-maxage=3600",
       },
-    }
+    },
   );
 };
