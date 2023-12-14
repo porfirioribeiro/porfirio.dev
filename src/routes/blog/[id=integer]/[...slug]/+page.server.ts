@@ -6,9 +6,9 @@ export const load: PageServerLoad = async (event) => {
   const gh = createGH(event);
   const post = await gh.getBlogPostById(+event.params.id);
 
-  if (!post) throw error(404, "Not Found");
+  if (!post) error(404, "Not Found");
 
-  if (event.params.slug !== post.slug) throw redirect(301, post.link);
+  if (event.params.slug !== post.slug) redirect(301, post.link);
 
   const comments = await gh.getCommentsForBlogPost(post.number);
 

@@ -13,6 +13,6 @@ export const load: PageServerLoad = async (event) => {
 
     return { posts, tag };
   } catch (e) {
-    throw error(404, `Tag ${name} not found`);
+    error(404, `Tag ${name} not found`);
   }
 };

@@ -2,5 +2,5 @@ import { createGH } from "$lib/server/gh";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async (event) => {
-  return { tags: createGH(event).getAllTags() };
+  return { tags: await createGH(event).getAllTags() };
 };
