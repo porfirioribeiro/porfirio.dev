@@ -1,5 +1,5 @@
 <script lang="ts">
-  import formatDistanceToNow from "date-fns/formatDistanceToNow";
+  import { formatDistanceToNow } from "date-fns";
   import BlogMeta from "$lib/components/BlogMeta.svelte";
   import TagChips from "$lib/components/TagChips.svelte";
   import type { PageData } from "./$types";
