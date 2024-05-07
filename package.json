@@ -17,7 +17,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.43.1",
+		"@playwright/test": "^1.44.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",
 		"@sveltejs/kit": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^3.1.0",
@@ -29,17 +29,17 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "~3.2.5",
 		"prettier-plugin-svelte": "^3.2.3",
-		"sass": "^1.75.0",
-		"svelte": "^4.2.15",
-		"svelte-check": "^3.6.9",
+		"sass": "^1.77.0",
+		"svelte": "^4.2.16",
+		"svelte-check": "^3.7.1",
 		"svelte-preprocess": "^5.1.4",
 		"tslib": "^2.6.2",
 		"typescript": "^5.4.5",
-		"vite": "^5.2.10"
+		"vite": "^5.2.11"
 	},
 	"dependencies": {
 		"date-fns": "^3.6.0",
-		"octokit": "^3.2.0",
-		"slug": "8.2.3"
+		"octokit": "^4.0.1",
+		"slug": "9.0.0"
 	}
 }
