@@ -1,4 +1,11 @@
 {
+	"eslint.enable": true,
+	"eslint.format.enable": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[svelte]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"editor.formatOnSave": true,
 	"cSpell.enabled": true,
 	"cSpell.enableFiletypes": ["svelte"],
 	"cSpell.words": [
