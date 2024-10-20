@@ -11,7 +11,7 @@
   </div>
 
   <div class="menu-wrapper" tabindex="-1">
-    <button title="Open menu">
+    <button aria-label="Open menu">
       <svg width={24} height={24} viewBox="0 0 24 24" fill="white">
         <rect x={0} y={2} width={24} height={4} />
         <rect x={0} y={10} width={24} height={4} />
