@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { BlogPostFull } from "$lib/types/blog";
 
-  export let post: BlogPostFull;
+  interface Props {
+    post: BlogPostFull;
+  }
+
+  let { post }: Props = $props();
 </script>
 
 <svelte:head>

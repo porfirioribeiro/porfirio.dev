@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { BlogTag } from "$lib/types/blog";
 
-  export let tags: BlogTag[];
+  interface Props {
+    tags: BlogTag[];
+  }
+
+  let { tags }: Props = $props();
 </script>
 
 <div>

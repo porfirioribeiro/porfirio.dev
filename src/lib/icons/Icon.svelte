@@ -1,8 +1,12 @@
 <script lang="ts">
   import { icons } from "./icons";
   type IconName = keyof typeof icons;
-  export let icon: IconName;
-  export let size = 24;
+  interface Props {
+    icon: IconName;
+    size?: number;
+  }
+
+  let { icon, size = 24 }: Props = $props();
 </script>
 
 <svg
