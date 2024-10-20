@@ -1,5 +1,9 @@
 <script lang="ts">
-  export let reactions: { name: string; count: number; icon: string }[];
+  interface Props {
+    reactions: { name: string; count: number; icon: string }[];
+  }
+
+  let { reactions }: Props = $props();
 </script>
 
 <div>

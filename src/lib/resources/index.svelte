@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { ResourceShape } from "./types";
 
-  export let resources: ResourceShape[];
+  interface Props {
+    resources: ResourceShape[];
+  }
+
+  let { resources }: Props = $props();
 </script>
 
 <dl class="books">

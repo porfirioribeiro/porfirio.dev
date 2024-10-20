@@ -1,14 +1,18 @@
 <script lang="ts">
   import type { PageData } from "./$types";
 
-  export let data: PageData;
+  interface Props {
+    data: PageData;
+  }
+
+  let { data }: Props = $props();
 </script>
 
 <h1>Tags</h1>
 
 {#each data.tags as tag}
   <a href={tag.link} style={`--color: ${tag.color}`} title={tag.description}>
-    <h3><span style:background={tag.color} />{tag.name}</h3>
+    <h3><span style:background={tag.color}></span>{tag.name}</h3>
   </a>
   {#if tag.description}
     <p>

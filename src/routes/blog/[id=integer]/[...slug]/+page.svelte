@@ -6,7 +6,11 @@
   import Markdown from "$lib/components/Markdown.svelte";
   import Reactions from "$lib/components/Reactions.svelte";
 
-  export let data: PageData;
+  interface Props {
+    data: PageData;
+  }
+
+  let { data }: Props = $props();
 </script>
 
 <BlogMeta post={data.post} />

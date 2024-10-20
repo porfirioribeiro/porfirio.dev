@@ -3,7 +3,11 @@
   import type { BlogPostItem } from "$lib/types/blog";
   import TagChips from "./TagChips.svelte";
 
-  export let posts: BlogPostItem[];
+  interface Props {
+    posts: BlogPostItem[];
+  }
+
+  let { posts }: Props = $props();
 </script>
 
 {#each posts as post}
