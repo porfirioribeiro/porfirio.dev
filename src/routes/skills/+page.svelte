@@ -7,6 +7,13 @@
 
 <h3>Working with:</h3>
 <ul>
+  <li>Vue with Typescript</li>
+  <li>SCSS / PostCSS / CSS Modules</li>
+  <li>Microservices with Docker / K8s</li>
+</ul>
+
+<h3>Previous experience:</h3>
+<ul>
   <li>React with Typescript</li>
   <li>SCSS / PostCSS / CSS Modules</li>
   <li>Spring Boot with Java / Kotlin</li>
