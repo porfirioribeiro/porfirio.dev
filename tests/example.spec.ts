@@ -16,6 +16,7 @@ test('has title', async ({ page, isMobile }) => {
 	async function clickNav(name: string) {
 		if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
 		await page.getByRole('link', { name }).click();
+
 		await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
 	}
 });
