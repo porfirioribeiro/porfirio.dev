@@ -8,6 +8,11 @@
 		"pnpm": ">=10"
 	},
 	"packageManager": "pnpm@10.0.0",
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@sveltejs/kit"
+		]
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
