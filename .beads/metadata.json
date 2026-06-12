@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "porfirio_dev",
+  "project_id": "dcf7d0ac-15e4-47c4-ae0b-ff5cac91bee1"
+}
