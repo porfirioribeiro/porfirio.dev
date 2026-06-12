@@ -181,6 +181,18 @@ export default defineConfig({
       },
       {
         files: ['**/*.svelte'],
+        globals: {
+          // Svelte 5 compiler runes — injected at compile time, not runtime globals
+          $props: 'readonly',
+          $state: 'readonly',
+          $derived: 'readonly',
+          $effect: 'readonly',
+          $bindable: 'readonly',
+          $inspect: 'readonly',
+          $host: 'readonly',
+          $snippet: 'readonly',
+          $render: 'readonly',
+        },
         rules: {
           'svelte/no-at-html-tags': 'off',
           'svelte/valid-compile': 'off',
