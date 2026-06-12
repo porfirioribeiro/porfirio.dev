@@ -9,7 +9,7 @@
 </script>
 
 <div>
-  {#each tags as tag}
+  {#each tags as tag (tag.name)}
     <a href={tag.link} style={`--color: ${tag.color}`} title={tag.description}>
       {tag.name}
     </a>

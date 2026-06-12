@@ -45,7 +45,7 @@
 </article>
 
 <section>
-  {#each data.comments as comment}
+  {#each data.comments as comment (comment.id)}
     <article>
       <a href={comment.author.ghUrl}>
         <img src={comment.author.avatar} alt={comment.author.name} width="32" />

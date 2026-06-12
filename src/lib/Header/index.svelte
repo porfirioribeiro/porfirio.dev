@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import Icon from "../icons/Icon.svelte";
 </script>
 
@@ -20,19 +20,19 @@
     </button>
     <nav>
       <ul>
-        <li class:active={$page.url.pathname === "/"}>
+        <li class:active={page.url.pathname === "/"}>
           <a href="/">Home</a>
         </li>
-        <li class:active={$page.url.pathname === "/projects"}>
+        <li class:active={page.url.pathname === "/projects"}>
           <a href="/projects">Projects</a>
         </li>
-        <li class:active={$page.url.pathname === "/skills"}>
+        <li class:active={page.url.pathname === "/skills"}>
           <a href="/skills">Skills</a>
         </li>
-        <li class:active={$page.url.pathname === "/resources"}>
+        <li class:active={page.url.pathname === "/resources"}>
           <a href="/resources">Resources</a>
         </li>
-        <li class:active={$page.url.pathname.startsWith("/blog")}>
+        <li class:active={page.url.pathname.startsWith("/blog")}>
           <a href="/blog">Blog</a>
         </li>
       </ul>

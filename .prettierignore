@@ -3,3 +3,7 @@ static/**
 build/**
 node_modules/**
 pnpm-lock.yaml
+.beads/**
+.claude/**
+AGENTS.md
+CLAUDE.md

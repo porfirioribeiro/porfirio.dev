@@ -9,7 +9,7 @@
 </script>
 
 <dl class="books">
-  {#each resources as res}
+  {#each resources as res (res.href)}
     <dt>
       <a href={res.href} target="_blank" rel="noopener noreferrer">
         {res.title}

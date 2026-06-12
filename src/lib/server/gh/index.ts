@@ -12,7 +12,7 @@ import type {
   BlogTag,
 } from "$lib/types/blog";
 
-type RT = keyof Omit<GHIssue["reactions"], "url" | "total_count">;
+type RT = keyof Omit<NonNullable<GHIssue["reactions"]>, "url" | "total_count">;
 
 const reactionIcons: Record<RT, string> = {
   "+1": "👍",
@@ -30,12 +30,12 @@ const reactionIcons: Record<RT, string> = {
 type GHIssue = Awaited<ReturnType<Octokit["rest"]["issues"]["get"]>>["data"];
 type GHLabel = Partial<
   Awaited<ReturnType<Octokit["rest"]["issues"]["getLabel"]>>["data"]
->;
+> & { color?: string | null };
 type GHIssueComment = Partial<
   Awaited<ReturnType<Octokit["rest"]["issues"]["getComment"]>>["data"]
 >;
 
-type GHUser = GHIssue["user"];
+type GHUser = NonNullable<GHIssue["user"]>;
 
 type GetPostsOptions = {
   tag?: string;
@@ -125,7 +125,7 @@ export function createGH({ fetch }: RequestEvent) {
 
       if (
         issue.pull_request || // not a pull request
-        issue.user.login !== owner || // only isses created by the repository owner
+        issue.user?.login !== owner || // only isses created by the repository owner
         !labelNames.includes(SystemLabels.Article) // only articles
       )
         return null;
@@ -145,32 +145,35 @@ export function createGH({ fetch }: RequestEvent) {
       );
 
       return comments.map<BlogPostComment>((c) => ({
-        id: c.id,
-        author: mapUserToAuthor(c.user),
-        created_at: c.created_at,
-        ghUrl: c.html_url,
+        id: c.id ?? 0,
+        author: mapUserToAuthor(c.user ?? null),
+        created_at: c.created_at ?? "",
+        ghUrl: c.html_url ?? "",
         reactions: mapReactions(c.reactions),
-        ...reparse(c.body_html),
+        ...reparse(c.body_html ?? ""),
       }));
     },
   };
 }
 
-function mapReactions(reactionMap: GHIssue["reactions"]) {
+function mapReactions(reactionMap: GHIssue["reactions"] | undefined) {
+  if (!reactionMap) return [];
   return Object.entries(reactionIcons).flatMap(([name, icon]) => {
-    const count = reactionMap[name];
-    return count ? [{ name, count, icon }] : [];
+    const count = (reactionMap as Record<string, number | string>)[name];
+    return typeof count === "number" && count > 0
+      ? [{ name, count, icon }]
+      : [];
   });
 }
 
 function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
-  const { meta, blocks, body } = reparse(issue.body_html);
+  const { meta, blocks, body } = reparse(issue.body_html ?? "");
   const slug = meta.slug || mkSlug(issue.title);
   const date = meta.date || mapDate(issue.created_at);
 
   const tags = issue.labels.flatMap((l) => {
-    if (typeof l === "string" || l.name.startsWith("$")) return [];
-    return mapLabelToTag(l);
+    if (typeof l === "string" || !l.name || l.name.startsWith("$")) return [];
+    return mapLabelToTag(l as GHLabel);
   });
 
   return {
@@ -194,25 +197,27 @@ const isValidTag = (t: BlogTag) => !t.name.startsWith("$");
 const mapDate = (created_at: string) => created_at.split("T")[0];
 
 function mapLabelToTag({ name, description, color }: GHLabel): BlogTag {
-  return { name, description, link: "/blog/tag/" + name, color: `#${color}` };
+  return {
+    name: name ?? "",
+    description: description ?? undefined,
+    link: "/blog/tag/" + name,
+    color: color ? `#${color}` : undefined,
+  };
 }
 
-function getLabelName(l: GHLabel | string) {
-  return typeof l === "string" ? l : l.name;
+function getLabelName(l: { name?: string | null } | string) {
+  return typeof l === "string" ? l : (l.name ?? undefined);
 }
 
-function mapUserToAuthor({
-  login,
-  html_url,
-  avatar_url,
-}: GHUser): BlogPostAuthor {
-  return { name: login, ghUrl: html_url, avatar: avatar_url };
+function mapUserToAuthor(user: GHUser | null | undefined): BlogPostAuthor {
+  if (!user) return { name: "unknown", ghUrl: "", avatar: undefined };
+  return { name: user.login, ghUrl: user.html_url, avatar: user.avatar_url };
 }
 
 function mapToBlogPostItem(issue: GHIssue): BlogPostItem {
   return {
     ...mapToBlogPostShared(issue),
-    reactions: issue.reactions.total_count,
+    reactions: issue.reactions?.total_count ?? 0,
     comments: issue.comments,
   };
 }

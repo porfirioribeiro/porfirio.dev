@@ -10,7 +10,7 @@
   let { posts }: Props = $props();
 </script>
 
-{#each posts as post}
+{#each posts as post (post.number)}
   <article>
     <a class="title" href={post.link}><h3>{post.title}</h3></a>
     {#if post.description}

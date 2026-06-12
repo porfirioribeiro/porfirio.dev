@@ -6,6 +6,7 @@ node_modules
 /functions
 .netlify
 .history
+.wrangler
 
 .env.local
 /test-results/

@@ -28,10 +28,14 @@ export default [
 		},
 		rules: {
 			'svelte/no-at-html-tags': 'off',
-			'svelte/valid-compile': 'off'
+			'svelte/valid-compile': 'off',
+			// No base path configured — href links don't need resolve()
+			'svelte/no-navigation-without-resolve': ['error', { ignoreLinks: true }],
+			// {#each} key is recommended but not required for static lists
+			'svelte/require-each-key': 'warn'
 		}
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/']
+		ignores: ['build/', '.svelte-kit/', 'dist/', '.beads/', '.claude/']
 	}
 ];

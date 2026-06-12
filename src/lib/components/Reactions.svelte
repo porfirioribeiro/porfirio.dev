@@ -7,7 +7,7 @@
 </script>
 
 <div>
-  {#each reactions as reaction}
+  {#each reactions as reaction (reaction.name)}
     <button title={reaction.name}>{reaction.icon}&nbsp;{reaction.count}</button>
   {/each}
 </div>

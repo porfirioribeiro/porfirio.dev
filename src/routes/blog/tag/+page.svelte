@@ -10,7 +10,7 @@
 
 <h1>Tags</h1>
 
-{#each data.tags as tag}
+{#each data.tags as tag (tag.name)}
   <a href={tag.link} style={`--color: ${tag.color}`} title={tag.description}>
     <h3><span style:background={tag.color}></span>{tag.name}</h3>
   </a>
