@@ -1,0 +1,10 @@
+allowBuilds:
+  "@parcel/watcher": true
+  "@sveltejs/kit": true
+  esbuild: true
+  sharp: true
+  workerd: true
+
+# Disable the default 24h minimum release age check (pnpm v11 default).
+# Not needed for a personal project; would block freshly-published packages.
+minimumReleaseAge: 0
