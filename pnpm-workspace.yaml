@@ -1,6 +1,6 @@
 allowBuilds:
-  "@parcel/watcher": true
-  "@sveltejs/kit": true
+  '@parcel/watcher': true
+  '@sveltejs/kit': true
   esbuild: true
   sharp: true
   workerd: true
@@ -8,3 +8,26 @@ allowBuilds:
 # Disable the default 24h minimum release age check (pnpm v11 default).
 # Not needed for a personal project; would block freshly-published packages.
 minimumReleaseAge: 0
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: npm:@voidzero-dev/vite-plus-test@latest
+  vite-plus: latest
+overrides:
+  vite: 'catalog:'
+  vitest: 'catalog:'
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'
+minimumReleaseAgeExclude:
+  - vite-plus
+  - '@voidzero-dev/*'
+  - oxlint
+  - '@oxlint/*'
+  - oxlint-tsgolint
+  - '@oxlint-tsgolint/*'
+  - oxfmt
+  - '@oxfmt/*'

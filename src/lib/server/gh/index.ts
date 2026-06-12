@@ -1,8 +1,8 @@
-import type { RequestEvent } from "@sveltejs/kit";
-import type { Octokit } from "octokit";
-import mkSlug from "slug";
+import type { RequestEvent } from '@sveltejs/kit';
+import type { Octokit } from 'octokit';
+import mkSlug from 'slug';
 
-import { GITHUB_TOKEN } from "$env/static/private";
+import { GITHUB_TOKEN } from '$env/static/private';
 import type {
   BlogPostAuthor,
   BlogPostFull,
@@ -10,66 +10,61 @@ import type {
   BlogPostShared,
   BlogPostComment,
   BlogTag,
-} from "$lib/types/blog";
+} from '$lib/types/blog';
 
-type RT = keyof Omit<NonNullable<GHIssue["reactions"]>, "url" | "total_count">;
+type RT = keyof Omit<NonNullable<GHIssue['reactions']>, 'url' | 'total_count'>;
 
 const reactionIcons: Record<RT, string> = {
-  "+1": "👍",
-  "-1": "👎",
-  laugh: "😄",
-  hooray: "🎉",
-  confused: "😕",
-  heart: "❤️",
-  rocket: "🚀",
-  eyes: "👀",
+  '+1': '👍',
+  '-1': '👎',
+  laugh: '😄',
+  hooray: '🎉',
+  confused: '😕',
+  heart: '❤️',
+  rocket: '🚀',
+  eyes: '👀',
 };
 
 //// posts
 
-type GHIssue = Awaited<ReturnType<Octokit["rest"]["issues"]["get"]>>["data"];
-type GHLabel = Partial<
-  Awaited<ReturnType<Octokit["rest"]["issues"]["getLabel"]>>["data"]
-> & { color?: string | null };
-type GHIssueComment = Partial<
-  Awaited<ReturnType<Octokit["rest"]["issues"]["getComment"]>>["data"]
->;
+type GHIssue = Awaited<ReturnType<Octokit['rest']['issues']['get']>>['data'];
+type GHLabel = Partial<Awaited<ReturnType<Octokit['rest']['issues']['getLabel']>>['data']> & {
+  color?: string | null;
+};
+type GHIssueComment = Partial<Awaited<ReturnType<Octokit['rest']['issues']['getComment']>>['data']>;
 
-type GHUser = NonNullable<GHIssue["user"]>;
+type GHUser = NonNullable<GHIssue['user']>;
 
 type GetPostsOptions = {
   tag?: string;
 };
 
-const owner = "porfirioribeiro";
-const repo = "porfirio.dev";
+const owner = 'porfirioribeiro';
+const repo = 'porfirio.dev';
 
 const enum SystemLabels {
-  Article = "$article",
-  Published = "$published",
+  Article = '$article',
+  Published = '$published',
 }
 
 const PublishedArticleLabels = [SystemLabels.Article, SystemLabels.Published];
 
 export function createGH({ fetch }: RequestEvent) {
   interface GHRequestOptions {
-    mediaType?: "json" | "raw" | "text" | "html" | "full";
+    mediaType?: 'json' | 'raw' | 'text' | 'html' | 'full';
   }
 
-  function ghRequestRaw(
-    path: string,
-    { mediaType = "json" }: GHRequestOptions = {},
-  ) {
-    const mtExt = mediaType == "json" ? "" : `.${mediaType}`;
+  function ghRequestRaw(path: string, { mediaType = 'json' }: GHRequestOptions = {}) {
+    const mtExt = mediaType == 'json' ? '' : `.${mediaType}`;
     const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
-    console.log("GET", url);
+    console.log('GET', url);
 
     return fetch(url, {
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
         Accept: `application/vnd.github${mtExt}+json`,
-        "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "porfirio.dev-Api",
+        'X-GitHub-Api-Version': '2022-11-28',
+        'User-Agent': 'porfirio.dev-Api',
       },
     });
   }
@@ -90,17 +85,12 @@ export function createGH({ fetch }: RequestEvent) {
 
   return {
     async getAllBlogPosts({ tag }: GetPostsOptions = {}) {
-      const labels = (PublishedArticleLabels as string[])
-        .concat(tag ?? [])
-        .join(",");
+      const labels = (PublishedArticleLabels as string[]).concat(tag ?? []).join(',');
 
       // only isses created by the repository owner
-      const r = await ghRequest<GHIssue[]>(
-        `issues?labels=${labels}&creator=${owner}`,
-        {
-          mediaType: "html",
-        },
-      );
+      const r = await ghRequest<GHIssue[]>(`issues?labels=${labels}&creator=${owner}`, {
+        mediaType: 'html',
+      });
       return r.map(mapToBlogPostItem);
     },
     async getLabelByName(name: string) {
@@ -115,7 +105,7 @@ export function createGH({ fetch }: RequestEvent) {
     },
     async getBlogPostById(id: number): Promise<BlogPostFull | null> {
       const r = await ghRequestRaw(`issues/${id}`, {
-        mediaType: "html",
+        mediaType: 'html',
       });
       if (!r.ok) return null;
 
@@ -137,42 +127,37 @@ export function createGH({ fetch }: RequestEvent) {
       };
     },
     async getCommentsForBlogPost(id: number): Promise<BlogPostComment[]> {
-      const comments = await ghRequest<GHIssueComment[]>(
-        `issues/${id}/comments`,
-        {
-          mediaType: "html",
-        },
-      );
+      const comments = await ghRequest<GHIssueComment[]>(`issues/${id}/comments`, {
+        mediaType: 'html',
+      });
 
       return comments.map<BlogPostComment>((c) => ({
         id: c.id ?? 0,
         author: mapUserToAuthor(c.user ?? null),
-        created_at: c.created_at ?? "",
-        ghUrl: c.html_url ?? "",
+        created_at: c.created_at ?? '',
+        ghUrl: c.html_url ?? '',
         reactions: mapReactions(c.reactions),
-        ...reparse(c.body_html ?? ""),
+        ...reparse(c.body_html ?? ''),
       }));
     },
   };
 }
 
-function mapReactions(reactionMap: GHIssue["reactions"] | undefined) {
+function mapReactions(reactionMap: GHIssue['reactions'] | undefined) {
   if (!reactionMap) return [];
   return Object.entries(reactionIcons).flatMap(([name, icon]) => {
     const count = (reactionMap as Record<string, number | string>)[name];
-    return typeof count === "number" && count > 0
-      ? [{ name, count, icon }]
-      : [];
+    return typeof count === 'number' && count > 0 ? [{ name, count, icon }] : [];
   });
 }
 
 function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
-  const { meta, blocks, body } = reparse(issue.body_html ?? "");
+  const { meta, blocks, body } = reparse(issue.body_html ?? '');
   const slug = meta.slug || mkSlug(issue.title);
   const date = meta.date || mapDate(issue.created_at);
 
   const tags = issue.labels.flatMap((l) => {
-    if (typeof l === "string" || !l.name || l.name.startsWith("$")) return [];
+    if (typeof l === 'string' || !l.name || l.name.startsWith('$')) return [];
     return mapLabelToTag(l as GHLabel);
   });
 
@@ -185,32 +170,32 @@ function mapToBlogPostShared(issue: GHIssue): BlogPostShared {
     ghUrl: issue.html_url,
     date,
     tags,
-    keywords: tags.map((t) => t.name).join(", "),
+    keywords: tags.map((t) => t.name).join(', '),
     author: mapUserToAuthor(issue.user),
     blocks,
     body,
   };
 }
 
-const isValidTag = (t: BlogTag) => !t.name.startsWith("$");
+const isValidTag = (t: BlogTag) => !t.name.startsWith('$');
 
-const mapDate = (created_at: string) => created_at.split("T")[0];
+const mapDate = (created_at: string) => created_at.split('T')[0];
 
 function mapLabelToTag({ name, description, color }: GHLabel): BlogTag {
   return {
-    name: name ?? "",
+    name: name ?? '',
     description: description ?? undefined,
-    link: "/blog/tag/" + name,
+    link: '/blog/tag/' + name,
     color: color ? `#${color}` : undefined,
   };
 }
 
 function getLabelName(l: { name?: string | null } | string) {
-  return typeof l === "string" ? l : (l.name ?? undefined);
+  return typeof l === 'string' ? l : (l.name ?? undefined);
 }
 
 function mapUserToAuthor(user: GHUser | null | undefined): BlogPostAuthor {
-  if (!user) return { name: "unknown", ghUrl: "", avatar: undefined };
+  if (!user) return { name: 'unknown', ghUrl: '', avatar: undefined };
   return { name: user.login, ghUrl: user.html_url, avatar: user.avatar_url };
 }
 
@@ -223,7 +208,7 @@ function mapToBlogPostItem(issue: GHIssue): BlogPostItem {
 }
 
 function reparse(body_html: string) {
-  const blocks: BlogPostFull["blocks"] = {};
+  const blocks: BlogPostFull['blocks'] = {};
   let meta: Record<string, string> = {};
 
   const body = body_html
@@ -234,20 +219,14 @@ function reparse(body_html: string) {
     <a href="${url}" target="_blank">Tweet loading...</a></blockquote>
     `;
     })
-    .replaceAll(
-      /(snippet-clipboard-content|position-relative|overflow-auto|notranslate)\s*/g,
-      "",
-    )
-    .replaceAll(/ data-snippet-clipboard-copy-content="[^"]*"/gm, "")
-    .replaceAll(' dir="auto"', "")
-    .replaceAll(' class=""', "")
-    .replace(
-      /<div><pre lang="sv-meta"><code>([\S\s]*)<\/code><\/pre><\/div>/,
-      (_, a) => {
-        meta = parseMeta(a);
-        return "";
-      },
-    );
+    .replaceAll(/(snippet-clipboard-content|position-relative|overflow-auto|notranslate)\s*/g, '')
+    .replaceAll(/ data-snippet-clipboard-copy-content="[^"]*"/gm, '')
+    .replaceAll(' dir="auto"', '')
+    .replaceAll(' class=""', '')
+    .replace(/<div><pre lang="sv-meta"><code>([\S\s]*)<\/code><\/pre><\/div>/, (_, a) => {
+      meta = parseMeta(a);
+      return '';
+    });
 
   if (body_html.includes('<div class="highlight')) blocks.code = true;
 
@@ -260,7 +239,5 @@ function reparse(body_html: string) {
 
 const mre = /(\w+):\s*(.*)/gm;
 function parseMeta(a: string): Record<string, string> {
-  return Object.fromEntries(
-    Array.from(a.matchAll(mre), (m) => [m[1], m[2].trim()]),
-  );
+  return Object.fromEntries(Array.from(a.matchAll(mre), (m) => [m[1], m[2].trim()]));
 }

@@ -1,13 +1,10 @@
-import type { RequestHandler } from "./$types";
-import { createGH } from "$lib/server/gh";
+import type { RequestHandler } from './$types';
+import { createGH } from '$lib/server/gh';
 
 export const GET: RequestHandler = async (event) => {
   const gh = createGH(event);
 
-  const [posts, tags] = await Promise.all([
-    gh.getAllBlogPosts(),
-    gh.getAllTags(),
-  ]);
+  const [posts, tags] = await Promise.all([gh.getAllBlogPosts(), gh.getAllTags()]);
 
   const x = [...posts, ...tags].map(
     (post) => `<url><loc>https://porfirio.dev${post.link}</loc></url>`,
@@ -42,13 +39,13 @@ export const GET: RequestHandler = async (event) => {
         <url>
           <loc>https://porfirio.dev/blog</loc>
         </url>
-        ${x.join("\n")}
+        ${x.join('\n')}
       </urlset>
       `.trim(),
     {
       headers: {
-        "Content-Type": "application/xml",
-        "Cache-Control": "public, max-age=5, s-maxage=86400",
+        'Content-Type': 'application/xml',
+        'Cache-Control': 'public, max-age=5, s-maxage=86400',
       },
     },
   );

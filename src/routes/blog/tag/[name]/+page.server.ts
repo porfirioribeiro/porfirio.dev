@@ -1,6 +1,6 @@
-import { createGH } from "$lib/server/gh";
-import { error } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import { createGH } from '$lib/server/gh';
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
   const gh = createGH(event);

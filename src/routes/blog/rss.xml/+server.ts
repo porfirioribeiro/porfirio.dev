@@ -1,10 +1,10 @@
-import type { RequestHandler } from "./$types";
-import { createGH } from "$lib/server/gh";
+import type { RequestHandler } from './$types';
+import { createGH } from '$lib/server/gh';
 
 export const GET: RequestHandler = async (event) => {
   const posts = await createGH(event).getAllBlogPosts();
 
-  const website = "https://porfirio.dev";
+  const website = 'https://porfirio.dev';
 
   const x = posts.map(
     (post) => `
@@ -36,14 +36,14 @@ export const GET: RequestHandler = async (event) => {
             <title>porfirio.dev</title>
             <link>https://porfirio.dev</link>
             <description>Personal website and blog of Porfírio Ribeiro</description> 
-            ${x.join("\n")} 
+            ${x.join('\n')} 
         </channel>
     </rss>
       `.trim(),
     {
       headers: {
-        "Content-Type": "application/xml",
-        "Cache-Control": "public, max-age=5, s-maxage=3600",
+        'Content-Type': 'application/xml',
+        'Cache-Control': 'public, max-age=5, s-maxage=3600',
       },
     },
   );

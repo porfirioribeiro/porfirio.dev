@@ -1,24 +1,25 @@
 {
-	"eslint.enable": true,
-	"eslint.format.enable": true,
-	"eslint.debug": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"eslint.useFlatConfig": true,
-	"[svelte]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
-	},
-	"editor.formatOnSave": true,
-	"cSpell.enabled": true,
-	"cSpell.enableFiletypes": ["svelte"],
-	"cSpell.words": [
-		//ignore common HTML stuff that fails on spell check
-		"noopener",
-		"noreferrer",
-		"prerender",
-		// words that should be on dictionary...
-		"Porfírio"
-	]
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "[svelte]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "oxc.fmt.configPath": "./vite.config.ts",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit"
+  },
+  "cSpell.words": ["noopener", "noreferrer", "prerender", "Porfírio"]
 }
