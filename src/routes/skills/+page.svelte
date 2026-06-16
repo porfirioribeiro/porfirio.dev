@@ -7,7 +7,9 @@
 
 <h3>Working with</h3>
 <ul>
-  <li>Vue with TypeScript</li>
+  <li>Vue with Typescript</li>
+  <li>Pinia</li>
+  <li>Nuxt</li>
   <li>SCSS / PostCSS / CSS Modules</li>
   <li>Microservices with Docker / Kubernetes</li>
 </ul>
