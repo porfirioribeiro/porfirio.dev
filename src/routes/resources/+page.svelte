@@ -17,10 +17,9 @@
 <h1>Resources</h1>
 
 <p>
-  From the last years of self-taught learning I've read, listen and saw so many
-  interesting things to help me grow on my career as a developer. Here I specify
-  some of them like books and podcasts. Later I hope to increment this list with
-  more content like videos and courses
+  Over the last few years of self-taught learning I've read, listened to, and watched so many
+  interesting things that helped me grow in my career as a developer. Here I highlight
+  some of them — books, podcasts, and courses.
 </p>
 
 <h3>Books</h3>
@@ -31,17 +30,14 @@
 
 <h3>Podcasts</h3>
 
-<p>
-  A list of podcasts I enjoy listen to while I'm going for a walk every morning
-</p>
+<p>Podcasts I enjoy listening to on my morning walks.</p>
 
 <Resources resources={data.podcasts} />
 
 <h3>Courses</h3>
 
 <p>
-  Some courses I took completely or partially to increase my learning on some
-  subjects
+  Courses I took fully or partially to deepen my knowledge on specific topics.
 </p>
 
 <Resources resources={data.courses} />

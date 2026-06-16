@@ -7,13 +7,13 @@ export const books: ResourceShape[] = [
     href: 'https://www.goodreads.com/book/show/49450069-reactive-spring',
   },
   {
-    title: 'Refactoring UI ',
+    title: 'Refactoring UI',
     author: 'Adam Wathan, Steve Schoger',
     href: 'https://www.goodreads.com/book/show/43190966-refactoring-ui',
   },
   {
     title: 'Refactoring: Improving the Design of Existing Code',
-    author: ' Martin Fowler, Kent Beck, Don Roberts',
+    author: 'Martin Fowler, Kent Beck, Don Roberts',
     href: 'https://www.goodreads.com/book/show/44936.Refactoring',
   },
   {
@@ -37,7 +37,7 @@ export const books: ResourceShape[] = [
     href: 'https://www.goodreads.com/book/show/7108725-start-with-why',
   },
   {
-    title: 'Deep Work: Rules for Focused Success in a Distracted World ',
+    title: 'Deep Work: Rules for Focused Success in a Distracted World',
     author: 'Cal Newport',
     href: 'https://www.goodreads.com/book/show/25744928-deep-work',
   },

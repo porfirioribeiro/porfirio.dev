@@ -12,22 +12,21 @@
 <h1>Porfírio Ribeiro</h1>
 <section>
   <p>
-    Hello there! My name is Porfírio, I am a self taught software developer from
-    Portugal
+    Hello! I'm Porfírio, a self-taught software developer from Portugal.
   </p>
   <p>
-    Shifted career from Farming to Development 5 years ago to follow my dream,
-    becoming a software developer. Today I am the head of development and manage
-    a team of 3 people.
+    I switched careers from farming to software development to follow my dream.
+    Today I lead a small development team and work across the full stack.
   </p>
   <p>
-    Started as a frontend developer with JavaScript, SASS and React, but later
-    also got into backend development with Java/Kotlin and Spring framework.
-    Becoming more full stack developer. Also did the mobile app of the company
-    with Dart and Flutter.
+    I started as a frontend developer with JavaScript, SCSS and React, then moved
+    into backend development with Java/Kotlin and the Spring framework —
+    becoming a full-stack developer along the way. I also built the company's
+    mobile app with Dart and Flutter.
   </p>
   <p>
-    During this learning journey, I created some small libraries that I share on
+    Throughout this journey I've created some small open-source libraries, which
+    you can find on
     <a
       href="https://github.com/porfirioribeiro"
       target="_blank"
@@ -37,17 +36,17 @@
     <a
       href="https://www.npmjs.com/~porfirio"
       target="_blank"
-      rel="noopener noreferrer">NPM</a
-    >
-    and collected some <a href="/resources">resources</a> I want to share.
+      rel="noopener noreferrer">npm</a
+    >.
+    I also keep a list of <a href="/resources">resources</a> I've found useful along the way.
   </p>
   <p>
-    My first (and only) public speaking was at a <a
+    My one public talk was at a <a
       href="https://www.youtube.com/watch?v=X9vE-0qFAJI"
       target="_blank"
       rel="noopener noreferrer">meetup</a
-    > where I talk about a investigation I was doing with Preact by adding a new
-    API to write components based on Vue Composition API.
+    > where I talked about an investigation I was doing with Preact by adding a new
+    API to write components based on the Vue Composition API.
   </p>
   <p>
     You can follow me on <a
@@ -63,13 +62,13 @@
     <a
       href="https://linkedin.com/in/porfirioribeiro"
       target="_blank"
-      rel="noopener noreferrer">Linkedin</a
+      rel="noopener noreferrer">LinkedIn</a
     >
-    or send me an email at
+    or reach me at
     <a
       href="mailto:porfirioribeiro@gmail.com"
       target="_blank"
       rel="noopener noreferrer">porfirioribeiro@gmail.com</a
-    >
+    >.
   </p>
 </section>

@@ -68,8 +68,9 @@
   header {
     display: flex;
     justify-content: space-between;
-    /* background-color: var(--theme-surface); */
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--theme-border);
+    box-shadow: 0 1px 0 0 rgba(3, 218, 198, 0.15);
   }
 
   .corner {

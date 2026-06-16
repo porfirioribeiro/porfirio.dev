@@ -2,7 +2,7 @@ import type { ResourceShape } from './types';
 
 export const courses: ResourceShape[] = [
   {
-    title: 'Spring Framework 5: Beginner to Guru ',
+    title: 'Spring Framework 5: Beginner to Guru',
     author: 'John Thompson',
     href: 'https://www.udemy.com/course/spring-framework-5-beginner-to-guru/',
   },
@@ -22,12 +22,12 @@ export const courses: ResourceShape[] = [
     href: 'https://www.udemy.com/course/flutter-rest-api-crash-course-build-a-coronavirus-app',
   },
   {
-    title: 'Mastering data visualization in D3.js ',
+    title: 'Mastering Data Visualization in D3.js',
     author: 'Adam Janes',
     href: 'https://www.udemy.com/course/masteringd3js',
   },
   {
-    title: 'Testing Javascript',
+    title: 'Testing JavaScript',
     author: 'Kent C. Dodds',
     href: 'https://testingjavascript.com/',
   },

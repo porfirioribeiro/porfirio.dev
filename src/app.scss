@@ -2,16 +2,13 @@
 
 :root {
   font-family:
-    Arial,
+    system-ui,
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',
     Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Open Sans',
     'Helvetica Neue',
+    Arial,
     sans-serif;
   --column-width: 42rem;
   --column-margin-top: 4rem;
@@ -19,13 +16,15 @@
   --theme-primary: #bb86fc; /* The theme primary color */
   --theme-secondary: #03dac6; /* The theme secondary color */
   --theme-background: #121212; /* The theme background color */
-  --theme-surface: #121212; /* The theme surface color */
+  --theme-surface: #1e1e1e; /* The theme surface color */
+  --theme-border: rgba(255, 255, 255, 0.1);
   --theme-error: #cf6679;
   --theme-on-primary: #000000; /* Text color on top of a primary background */
   --theme-on-secondary: #000000; /* Text color on top of a secondary background */
-  --theme-on-background: #ffffff; /* Text color on top of a background */
+  --theme-on-background: #e8e8e8; /* Text color on top of a background */
   --theme-on-surface: #ffffff; /* Text color on top of a surface background */
   --theme-on-error: #000000;
+  --theme-muted: rgba(255, 255, 255, 0.55);
 }
 
 body {
@@ -43,12 +42,13 @@ body {
 
 h1,
 h2,
+h3,
 p {
   font-weight: 400;
 }
 
 p {
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 a {
@@ -62,12 +62,21 @@ a:hover {
 
 h1 {
   font-size: 2rem;
-  margin-bottom: 0 0 1em 0;
+  margin: 0 0 1.25rem;
   text-align: center;
+  letter-spacing: -0.02em;
 }
 
 h2 {
   font-size: 1rem;
+}
+
+h3 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--theme-muted);
+  margin: 2rem 0 0.5rem;
 }
 
 input,

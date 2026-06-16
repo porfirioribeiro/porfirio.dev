@@ -28,7 +28,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 2rem 1.25rem;
     width: 100%;
     max-width: 70ch;
     margin: 0 auto;
@@ -40,16 +40,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding: 2rem;
+    border-top: 1px solid var(--theme-border);
+    font-size: 0.875rem;
+    color: var(--theme-muted);
+  }
+
+  footer p {
+    margin: 0;
   }
 
   footer a {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   @media (min-width: 480px) {
     footer {
-      padding: 40px 0;
+      padding: 2rem 0;
     }
   }
 </style>
