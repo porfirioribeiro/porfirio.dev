@@ -8,6 +8,8 @@
 <h3>Working with:</h3>
 <ul>
   <li>Vue with Typescript</li>
+  <li>Pinia</li>
+  <li>Nuxt</li>
   <li>SCSS / PostCSS / CSS Modules</li>
   <li>Microservices with Docker / K8s</li>
 </ul>
