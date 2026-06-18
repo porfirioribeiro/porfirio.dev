@@ -2,6 +2,8 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
+  plugins: [sveltekit()],
+
   staged: {
     '*': 'vp check --fix',
   },
@@ -231,5 +233,7 @@ export default defineConfig({
       'CLAUDE.md',
     ],
   },
-  plugins: [sveltekit()],
+  test: {
+    include: ['src/**/*.test.ts'],
+  },
 });
