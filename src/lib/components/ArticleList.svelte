@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from "$lib/icons/Icon.svelte";
-  import type { BlogPostItem } from "$lib/types/blog";
+  import Icon from "#lib/icons/Icon.svelte";
+  import type { BlogPostItem } from "#lib/types/blog.js";
   import TagChips from "./TagChips.svelte";
 
   interface Props {

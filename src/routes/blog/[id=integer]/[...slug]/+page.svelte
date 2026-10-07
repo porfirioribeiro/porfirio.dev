@@ -1,10 +1,10 @@
 <script lang="ts">
   import { formatDistanceToNow } from "date-fns";
-  import BlogMeta from "$lib/components/BlogMeta.svelte";
-  import TagChips from "$lib/components/TagChips.svelte";
+  import BlogMeta from "#lib/components/BlogMeta.svelte";
+  import TagChips from "#lib/components/TagChips.svelte";
   import type { PageData } from "./$types";
-  import Markdown from "$lib/components/Markdown.svelte";
-  import Reactions from "$lib/components/Reactions.svelte";
+  import Markdown from "#lib/components/Markdown.svelte";
+  import Reactions from "#lib/components/Reactions.svelte";
 
   interface Props {
     data: PageData;

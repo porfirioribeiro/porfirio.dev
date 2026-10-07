@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { BlogTag } from "$lib/types/blog";
+  import type { BlogTag } from "#lib/types/blog.js";
 
   interface Props {
     tags: BlogTag[];

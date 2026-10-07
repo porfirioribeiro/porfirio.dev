@@ -2,7 +2,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 import type { Octokit } from 'octokit';
 import mkSlug from 'slug';
 
-import { GITHUB_TOKEN } from '$env/static/private';
+import { GITHUB_TOKEN } from '$app/env/private';
 import type {
   BlogPostAuthor,
   BlogPostFull,
@@ -10,7 +10,7 @@ import type {
   BlogPostShared,
   BlogPostComment,
   BlogTag,
-} from '$lib/types/blog';
+} from '#lib/types/blog.js';
 
 type RT = keyof Omit<NonNullable<GHIssue['reactions']>, 'url' | 'total_count'>;
 
@@ -115,7 +115,7 @@ export function createGH({ fetch }: RequestEvent) {
 
       if (
         issue.pull_request || // not a pull request
-        issue.user?.login !== owner || // only isses created by the repository owner
+        issue.user?.login !== owner || // only issues created by the repository owner
         !labelNames.includes(SystemLabels.Article) // only articles
       )
         return null;

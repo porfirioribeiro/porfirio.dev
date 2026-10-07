@@ -1,10 +1,10 @@
-import { createGH } from '$lib/server/gh';
+import { createGH } from '#lib/server/gh/index.js';
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
   const gh = createGH(event);
-  const post = await gh.getBlogPostById(+event.params.id);
+  const post = await gh.getBlogPostById(event.params.id);
 
   if (!post) error(404, 'Not Found');
 

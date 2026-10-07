@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { BlogPostFull } from "$lib/types/blog";
+  import type { BlogPostFull } from "#lib/types/blog.js";
 
   interface Props {
     post: BlogPostFull;

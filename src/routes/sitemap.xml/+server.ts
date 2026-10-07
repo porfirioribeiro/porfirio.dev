@@ -1,5 +1,5 @@
 import type { RequestHandler } from './$types';
-import { createGH } from '$lib/server/gh';
+import { createGH } from '#lib/server/gh/index.js';
 
 export const GET: RequestHandler = async (event) => {
   const gh = createGH(event);

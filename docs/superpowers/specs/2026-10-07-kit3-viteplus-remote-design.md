@@ -53,7 +53,7 @@ Use the official migrators, in order, then only the API moves this repo actually
 ## SvelteKit 3 API moves
 
 - Config moves from `svelte.config.js` into the `sveltekit()` plugin in `vite.config.ts`.
-- `$lib` -> `#lib` via Node subpath imports in `package.json`, with explicit extensions.
+- `#lib` -> `#lib` via Node subpath imports in `package.json`, with explicit extensions.
 - `tsconfig.json` extends `$app/tsconfig` and declares `include`/`exclude`.
 - `Handle` / `HandleFetch` types from `@sveltejs/kit/hooks`.
 - Param matchers collapse into `src/params.ts` using `defineParams` from `@sveltejs/kit/params`.

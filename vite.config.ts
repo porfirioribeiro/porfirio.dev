@@ -1,12 +1,11 @@
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import cloudflare from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
-  plugins: [sveltekit()],
-
-  staged: {
-    '*': 'vp check --fix',
-  },
+  plugins: [sveltekit({ preprocess: [vitePreprocess()], adapter: cloudflare() })],
+  staged: { '*': 'vp check --fix' },
   lint: {
     plugins: ['oxc', 'typescript', 'unicorn', 'react'],
     jsPlugins: [

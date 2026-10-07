@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Resources from "$lib/resources/index.svelte";
+  import Resources from "#lib/resources/index.svelte";
   import type { PageData } from "./$types";
 
   interface Props {

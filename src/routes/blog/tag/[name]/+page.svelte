@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ArticleList from "$lib/components/ArticleList.svelte";
+  import ArticleList from "#lib/components/ArticleList.svelte";
   import type { PageData } from "./$types";
 
   interface Props {

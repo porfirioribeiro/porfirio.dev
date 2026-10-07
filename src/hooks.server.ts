@@ -1,4 +1,4 @@
-import type { Handle, HandleFetch } from '@sveltejs/kit';
+import type { Handle, HandleFetch } from '@sveltejs/kit/hooks';
 
 export const handle: Handle = async ({ event, resolve }) => {
   const response = await resolve(event);
