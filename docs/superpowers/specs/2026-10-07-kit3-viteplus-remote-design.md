@@ -132,8 +132,9 @@ upload directory. The site now runs as a **Worker** named `porfirio-dev`:
   `porfirio.dev/*` zone route (a custom domain was blocked by pre-existing DNS records).
 - Compatibility flags `nodejs_compat` and `nodejs_als` are set on the Worker and were also set
   on the legacy Pages project.
-- Deploys run via `.github/workflows/deploy.yml` (`vp build` + `wrangler deploy`) using the
-  `CLOUDFLARE_TOKEN` secret, which must have Workers Scripts:Edit permission.
+- Deploys run via `.github/workflows/deploy.yml` (`vp build` + `wrangler deploy`). It needs a
+  `CLOUDFLARE_API_TOKEN` secret with **Workers Scripts:Edit**; until that exists the deploy
+  step skips with a notice (the existing `CLOUDFLARE_TOKEN` only has cache-purge scope).
 - The old Pages project `porfirio-dev` still exists and is Git-connected, but no longer owns
   `porfirio.dev`; its builds only publish to `porfirio-dev.pages.dev`. It can be deleted.
 
