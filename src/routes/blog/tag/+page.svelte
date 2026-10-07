@@ -1,16 +1,12 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+  import { getBlogTags } from '#lib/blog.remote.js';
 
-  interface Props {
-    data: PageData;
-  }
-
-  let { data }: Props = $props();
+  const tags = getBlogTags();
 </script>
 
 <h1>Tags</h1>
 
-{#each data.tags as tag (tag.name)}
+{#each await tags as tag (tag.name)}
   <a href={tag.link} style={`--color: ${tag.color}`} title={tag.description}>
     <h3><span style:background={tag.color}></span>{tag.name}</h3>
   </a>

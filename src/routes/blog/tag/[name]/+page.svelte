@@ -1,12 +1,10 @@
 <script lang="ts">
-  import ArticleList from "#lib/components/ArticleList.svelte";
-  import type { PageData } from "./$types";
+  import ArticleList from '#lib/components/ArticleList.svelte';
+  import { getBlogPostsByTag } from '#lib/blog.remote.js';
 
-  interface Props {
-    data: PageData;
-  }
+  let { params } = $props();
 
-  let { data }: Props = $props();
+  const data = $derived(await getBlogPostsByTag(params.name));
 </script>
 
 <svelte:head>

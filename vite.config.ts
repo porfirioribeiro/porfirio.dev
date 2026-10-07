@@ -4,7 +4,14 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
-  plugins: [sveltekit({ preprocess: [vitePreprocess()], adapter: cloudflare() })],
+  plugins: [
+    sveltekit({
+      preprocess: [vitePreprocess()],
+      adapter: cloudflare(),
+      experimental: { remoteFunctions: true },
+      compilerOptions: { experimental: { async: true } },
+    }),
+  ],
   staged: { '*': 'vp check --fix' },
   lint: {
     plugins: ['oxc', 'typescript', 'unicorn', 'react'],

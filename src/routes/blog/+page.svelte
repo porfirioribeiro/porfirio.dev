@@ -1,15 +1,10 @@
 <script lang="ts">
-  import ArticleList from "#lib/components/ArticleList.svelte";
+  import ArticleList from '#lib/components/ArticleList.svelte';
+  import { getBlogPosts } from '#lib/blog.remote.js';
 
-  import type { PageData } from "./$types";
-
-  interface Props {
-    data: PageData;
-  }
-
-  let { data }: Props = $props();
+  const posts = getBlogPosts();
 </script>
 
 <h1>Blog</h1>
 
-<ArticleList posts={data.posts} />
+<ArticleList posts={await posts} />

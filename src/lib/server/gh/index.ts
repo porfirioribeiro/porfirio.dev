@@ -76,7 +76,7 @@ export function createGH({ fetch }: RequestEvent) {
           path,
           status: r.status,
           statusText: r.statusText,
-          body: await r.text(),
+          body: await r.clone().text(),
         });
       }
       return r.json();

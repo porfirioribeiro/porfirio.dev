@@ -2,15 +2,13 @@
   import { formatDistanceToNow } from "date-fns";
   import BlogMeta from "#lib/components/BlogMeta.svelte";
   import TagChips from "#lib/components/TagChips.svelte";
-  import type { PageData } from "./$types";
   import Markdown from "#lib/components/Markdown.svelte";
   import Reactions from "#lib/components/Reactions.svelte";
+  import { getBlogPost } from "#lib/blog.remote.js";
 
-  interface Props {
-    data: PageData;
-  }
+  let { params } = $props();
 
-  let { data }: Props = $props();
+  const data = $derived(await getBlogPost({ id: params.id, slug: params.slug }));
 </script>
 
 <BlogMeta post={data.post} />
