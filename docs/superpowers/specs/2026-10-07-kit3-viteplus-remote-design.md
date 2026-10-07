@@ -107,3 +107,39 @@ sveltekit({
 - Octokit may need `nodejs_compat` on Workers and may inflate worker size; watch the size limit.
 - A live deploy requires Cloudflare credentials; if they are missing, stop at a validated local
   build and hand off the exact deploy command.
+
+## Outcome (2026-10-07)
+
+Delivered and verified live at https://porfirio.dev:
+
+- Node 24.21.0 LTS, Vite+ 1.1.0 (Vite 8.3.3, Vitest 5), SvelteKit 3.0.1, Svelte 5.57.2,
+  adapter-cloudflare 8.0.0, Wrangler 4.148.
+- SvelteKit 3 API set adopted (`#lib`, `$app/tsconfig`, `@sveltejs/kit/hooks`,
+  `src/params.ts`, `$app/env`).
+- `GITHUB_TOKEN` is a runtime variable; `id` is a number.
+- Blog data served through remote functions (`src/lib/blog.remote.ts`) with
+  `experimental.remoteFunctions` and `compilerOptions.experimental.async`.
+- Blog data fix: `ghRequest` clones the response before logging the body.
+
+### Deployment change: Pages -> Workers
+
+adapter-cloudflare 8 emits Workers Static Assets output (`main` + `assets`, `env.ASSETS`,
+`../cloudflare-tmp/server.js`). A Cloudflare **Pages** build of that output was broken (mixed
+404/500), and `wrangler pages deploy` could not bundle the server code that lives outside the
+upload directory. The site now runs as a **Worker** named `porfirio-dev`:
+
+- `wrangler.jsonc` uses `main`, `assets.directory`, `assets.binding`, and a
+  `porfirio.dev/*` zone route (a custom domain was blocked by pre-existing DNS records).
+- Compatibility flags `nodejs_compat` and `nodejs_als` are set on the Worker and were also set
+  on the legacy Pages project.
+- Deploys run via `.github/workflows/deploy.yml` (`vp build` + `wrangler deploy`) using the
+  `CLOUDFLARE_TOKEN` secret, which must have Workers Scripts:Edit permission.
+- The old Pages project `porfirio-dev` still exists and is Git-connected, but no longer owns
+  `porfirio.dev`; its builds only publish to `porfirio-dev.pages.dev`. It can be deleted.
+
+### Notes
+
+- The Pages production env vars (`GITHUB_TOKEN`, `PNPM_VERSION`) were accidentally cleared by a
+  project PATCH and restored from a prior deployment snapshot.
+- Remote functions are experimental; if they regress, the queries in `src/lib/blog.remote.ts`
+  can be moved back to `+page.server.ts` loads without touching the rest of the stack.
