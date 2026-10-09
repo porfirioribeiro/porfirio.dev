@@ -1,12 +1,8 @@
 <script lang="ts">
-  import Resources from "#lib/resources/index.svelte";
-  import type { PageData } from "./$types";
-
-  interface Props {
-    data: PageData;
-  }
-
-  let { data }: Props = $props();
+  import Resources from '#lib/resources/index.svelte';
+  import { books } from '#lib/resources/books.js';
+  import { podcasts } from '#lib/resources/podcasts.js';
+  import { courses } from '#lib/resources/courses.js';
 </script>
 
 <svelte:head>
@@ -26,13 +22,13 @@
 
 <p>A list of some books I enjoyed reading and I found interesting.</p>
 
-<Resources resources={data.books} />
+<Resources resources={books} />
 
 <h3>Podcasts</h3>
 
 <p>Podcasts I enjoy listening to on my morning walks.</p>
 
-<Resources resources={data.podcasts} />
+<Resources resources={podcasts} />
 
 <h3>Courses</h3>
 
@@ -40,4 +36,4 @@
   Courses I took fully or partially to deepen my knowledge on specific topics.
 </p>
 
-<Resources resources={data.courses} />
+<Resources resources={courses} />

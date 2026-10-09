@@ -1,5 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 import { getRequestEvent, query } from '$app/server';
+import * as v from 'valibot';
 
 import { createGH } from '#lib/server/gh/index.js';
 
@@ -15,23 +16,21 @@ export const getBlogTags = query(async () => {
   return gh().getAllTags();
 });
 
-export const getBlogPostsByTag = query('unchecked', async (name: string) => {
-  try {
-    const ghClient = gh();
-    const [posts, tag] = await Promise.all([
-      ghClient.getAllBlogPosts({ tag: name }),
-      ghClient.getLabelByName(name),
-    ]);
+export const getBlogPostsByTag = query(v.string(), async (name) => {
+  const ghClient = gh();
+  const [posts, tag] = await Promise.all([
+    ghClient.getAllBlogPosts({ tag: name }),
+    ghClient.getLabelByName(name),
+  ]);
 
-    return { posts, tag };
-  } catch {
-    error(404, `Tag ${name} not found`);
-  }
+  if (!tag) error(404, `Tag ${name} not found`);
+
+  return { posts, tag };
 });
 
 export const getBlogPost = query(
-  'unchecked',
-  async ({ id, slug }: { id: number; slug: string }) => {
+  v.object({ id: v.number(), slug: v.string() }),
+  async ({ id, slug }) => {
     const ghClient = gh();
     const post = await ghClient.getBlogPostById(id);
 

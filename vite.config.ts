@@ -30,7 +30,7 @@ export default defineConfig({
       browser: true,
       node: true,
     },
-    ignorePatterns: ['build/', '.svelte-kit/', 'dist/', '.beads/', '.claude/'],
+    ignorePatterns: ['build/', '.svelte-kit/', 'dist/', '.beads/', '.claude/', '.agents/'],
     rules: {
       'constructor-super': 'error',
       'for-direction': 'error',
@@ -235,6 +235,7 @@ export default defineConfig({
       'pnpm-lock.yaml',
       '.beads/**',
       '.claude/**',
+      '.agents/**',
       'AGENTS.md',
       'CLAUDE.md',
     ],

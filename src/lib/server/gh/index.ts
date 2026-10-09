@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { Octokit } from 'octokit';
 import mkSlug from 'slug';
@@ -57,7 +58,6 @@ export function createGH({ fetch }: RequestEvent) {
   function ghRequestRaw(path: string, { mediaType = 'json' }: GHRequestOptions = {}) {
     const mtExt = mediaType == 'json' ? '' : `.${mediaType}`;
     const url = `https://api.github.com/repos/${owner}/${repo}/${path}`;
-    console.log('GET', url);
 
     return fetch(url, {
       headers: {
@@ -78,6 +78,7 @@ export function createGH({ fetch }: RequestEvent) {
           statusText: r.statusText,
           body: await r.clone().text(),
         });
+        error(502, `GitHub API request failed: ${path} (${r.status})`);
       }
       return r.json();
     }) as Promise<T>;
@@ -93,10 +94,11 @@ export function createGH({ fetch }: RequestEvent) {
       });
       return r.map(mapToBlogPostItem);
     },
-    async getLabelByName(name: string) {
-      const r = await ghRequest<GHLabel>(`labels/${name}`);
+    async getLabelByName(name: string): Promise<BlogTag | null> {
+      const r = await ghRequestRaw(`labels/${name}`);
+      if (!r.ok) return null;
 
-      return mapLabelToTag(r);
+      return mapLabelToTag((await r.json()) as GHLabel);
     },
     async getAllTags(): Promise<BlogTag[]> {
       const r = await ghRequest<GHLabel[]>(`labels`);
