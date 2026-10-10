@@ -10,6 +10,12 @@
     "binding": "ASSETS",
   },
   "routes": [{ "pattern": "porfirio.dev/*", "zone_name": "porfirio.dev" }],
+  // Worker Previews: `previews` block is required by `npx wrangler preview`
+  // (empty = previews use top-level settings). `preview_urls` gives Previews a
+  // public <preview>-porfirio-dev...workers.dev URL; it defaults to false and
+  // must be applied via a deploy.
+  "preview_urls": true,
+  "previews": {},
   // Observability: sync with dashboard settings (Workers Logs + Traces).
   // Note: dashboard suggests "issue_detection"; wrangler's schema uses "issues".
   "observability": {
