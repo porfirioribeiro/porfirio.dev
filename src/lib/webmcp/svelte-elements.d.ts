@@ -10,5 +10,7 @@ declare module 'svelte/elements' {
     toolname?: string | undefined | null;
     /** WebMCP Declarative API (experimental): natural-language description of the tool. */
     tooldescription?: string | undefined | null;
+    /** WebMCP Declarative API (experimental): description of this form control's parameter. */
+    toolparamdescription?: string | undefined | null;
   }
 }
