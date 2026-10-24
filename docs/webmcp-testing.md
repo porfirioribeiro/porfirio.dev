@@ -32,8 +32,9 @@ On a loaded machine, `--workers=1` avoids browser-process flakiness.
 1. **Chrome 149+** with `chrome://flags/#enable-webmcp-testing` → **Enabled** →
    relaunch. (Chrome 146–148 has the API but no DevTools pane.)
 2. Open the site — **tools only exist on these routes**:
-   `/about`, `/skills`, `/projects`, `/blog`, `/blog/<post>`, `/resources`.
-   **The home page intentionally registers nothing.**
+   `/`, `/about`, `/skills`, `/projects`, `/blog`, `/blog/<post>`, `/resources`.
+   **The home page registers `site_overview`** — a discovery tool that maps
+   every route to its tools.
 3. DevTools → **Application tab** → sidebar → **WebMCP** pane.
    (It is not a top-level DevTools panel.)
 4. If the pane is empty, sanity-check the API in the console:
@@ -57,6 +58,7 @@ That's exactly what `tests/webmcp-real.spec.ts` does via
 
 | Page           | Tool                  | Kind             | What it does                                                |
 | -------------- | --------------------- | ---------------- | ----------------------------------------------------------- |
+| `/`            | `site_overview`       | read-only        | Discovery map: site facts + which tools live on which page  |
 | `/about`       | `get_profile`         | read-only        | Facts about the author: site purpose, exploring list, links |
 | `/skills`      | `list_skills`         | read-only        | Skill categories, optional `category` filter                |
 | `/skills`      | `filter_skills`       | interactive      | Sets the visible category filter — watch the page update    |
@@ -82,7 +84,8 @@ as a tool — visible in the WebMCP pane as `search_blog_form`.
       `https://porfirio.dev/...` URLs.
 - [ ] On a blog post, `get_current_article` matches the article on screen;
       navigating to another post updates the answer.
-- [ ] Navigating to `/` clears all tools (cleanup verified).
+- [ ] Navigating to `/` leaves only `site_overview`; invoking it lists every
+      page with its tools (agent discovery path).
 
 ## Local blog data (GitHub)
 

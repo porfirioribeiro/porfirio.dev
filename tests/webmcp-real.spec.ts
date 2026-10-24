@@ -67,9 +67,13 @@ test('registers per-route tools, cleans up on navigation', async ({ page, isMobi
   await page.goto('/projects');
   await expect.poll(() => toolNames(page)).toEqual(['list_projects']);
 
-  // home page registers nothing by design
+  // home page greets agents with the site map tool
   await page.goto('/');
-  await expect.poll(() => toolNames(page)).toEqual([]);
+  await expect.poll(() => toolNames(page)).toEqual(['site_overview']);
+  const overview = await execute(page, 'site_overview');
+  const pages = overview.pages as Array<{ url: string; tools: string[] }>;
+  const skillsPage = pages.find((p) => p.url.endsWith('/skills'));
+  expect(skillsPage?.tools).toEqual(['list_skills', 'filter_skills']);
 
   expect(errors).toEqual([]);
 });
@@ -128,7 +132,7 @@ test('blog: search, tags, declarative form tool, current article', async ({ page
   expect(article.url).toMatch(/^https:\/\/porfirio\.dev\/blog\/\d+/);
   await expect(page.locator('h1').first()).toContainText(article.title as string);
 
-  // navigating away unregisters everything
+  // navigating away unregisters the post's tools; home keeps only its own
   await page.goto('/');
-  await expect.poll(() => toolNames(page)).toEqual([]);
+  await expect.poll(() => toolNames(page)).toEqual(['site_overview']);
 });

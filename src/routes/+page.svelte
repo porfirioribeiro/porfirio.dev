@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { useWebMCP } from '#lib/webmcp/index.js';
+  import { siteOverviewTool } from '#lib/webmcp/tools.js';
+
+  useWebMCP(() => [siteOverviewTool()]);
 </script>
 
 <svelte:head>
