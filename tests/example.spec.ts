@@ -14,8 +14,9 @@ test('has title', async ({ page, isMobile }) => {
   await clickNav('Blog');
 
   async function clickNav(name: string) {
+    const nav = page.getByRole('navigation', { name: 'Main' });
     if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
-    await page.getByRole('link', { name }).click();
+    await nav.getByRole('link', { name, exact: true }).click();
     await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
   }
 });

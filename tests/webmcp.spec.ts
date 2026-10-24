@@ -70,13 +70,13 @@ test('filter_skills updates the visible UI', async ({ page }) => {
   await page.goto('/skills');
   await expect.poll(() => names(page)).toContain('filter_skills');
   await call(page, 'filter_skills', { category: 'Working with' });
-  await expect(page.getByRole('heading', { level: 3 })).toHaveText(['Working with']);
+  await expect(page.getByRole('heading', { level: 2 })).toHaveText(['Working with']);
   await expect(page.getByRole('button', { name: 'Working with' })).toHaveAttribute(
     'aria-pressed',
     'true',
   );
   await call(page, 'filter_skills', { category: 'all' });
-  await expect(page.getByRole('heading', { level: 3 })).toHaveCount(3);
+  await expect(page.getByRole('heading', { level: 2 })).toHaveCount(3);
 });
 
 test('blog tools and search form', async ({ page }) => {

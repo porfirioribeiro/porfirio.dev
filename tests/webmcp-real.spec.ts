@@ -85,14 +85,14 @@ test('filter_skills executes through the real API and syncs the UI', async ({ pa
   const result = await execute(page, 'filter_skills', { category: 'Working with' });
   expect(result.visible).toEqual(['Working with']);
   // the visible page must reflect the agent's action
-  await expect(page.getByRole('heading', { level: 3 })).toHaveText(['Working with']);
+  await expect(page.getByRole('heading', { level: 2 })).toHaveText(['Working with']);
   await expect(page.getByRole('button', { name: 'Working with' })).toHaveAttribute(
     'aria-pressed',
     'true',
   );
 
   await execute(page, 'filter_skills', { category: 'all' });
-  await expect(page.getByRole('heading', { level: 3 })).toHaveCount(3);
+  await expect(page.getByRole('heading', { level: 2 })).toHaveCount(3);
 });
 
 test('blog: search, tags, declarative form tool, current article', async ({ page }) => {
