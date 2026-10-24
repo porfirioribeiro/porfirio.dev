@@ -108,4 +108,22 @@ describe('registerTools', () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(console.warn).toHaveBeenCalled();
   });
+
+  it('logs a warning and does not throw when provideContext fails', () => {
+    vi.stubGlobal('document', {});
+    const provideContext = vi.fn(() => {
+      throw new DOMException('denied', 'NotAllowedError');
+    });
+    vi.stubGlobal('navigator', { modelContext: { provideContext } });
+
+    expect(() => registerTools([tool('a')])).not.toThrow();
+    expect(console.warn).toHaveBeenCalled();
+
+    vi.mocked(provideContext).mockImplementation(() => {});
+    const cleanup = registerTools([tool('a')]);
+    provideContext.mockImplementation(() => {
+      throw new DOMException('denied', 'NotAllowedError');
+    });
+    expect(() => cleanup()).not.toThrow();
+  });
 });

@@ -68,8 +68,18 @@ export function registerTools(tools: WebMCPTool[]): () => void {
   if (!detected) return () => {};
 
   if (detected.kind === 'provideContext') {
-    detected.provideContext({ tools });
-    return () => detected.provideContext({ tools: [] });
+    try {
+      detected.provideContext({ tools });
+    } catch (error) {
+      console.warn('[webmcp] failed to register tools via provideContext', error);
+    }
+    return () => {
+      try {
+        detected.provideContext({ tools: [] });
+      } catch (error) {
+        console.warn('[webmcp] failed to clear tools via provideContext', error);
+      }
+    };
   }
 
   const controllers = tools.map((tool) => {
