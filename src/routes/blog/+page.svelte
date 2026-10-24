@@ -3,7 +3,7 @@
   import BlogSearch from '#lib/components/BlogSearch.svelte';
   import { getBlogPosts, getBlogTags } from '#lib/blog.remote.js';
   import { useWebMCP } from '#lib/webmcp/index.js';
-  import { searchBlogTool, listBlogTagsTool } from '#lib/webmcp/blog-tools.js';
+  import { filterPosts, searchBlogTool, listBlogTagsTool } from '#lib/webmcp/blog-tools.js';
   import type { BlogPostItem } from '#lib/types/blog.js';
 
   const posts = getBlogPosts();
@@ -24,13 +24,9 @@
   });
 
   const filtered = $derived.by(() => {
-    const q = query.trim().toLowerCase();
+    const q = query.trim();
     if (!q || !clientPosts) return null;
-    return clientPosts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(q) ||
-        post.tags.some((tag) => tag.name.toLowerCase().includes(q)),
-    );
+    return filterPosts(clientPosts, q);
   });
 
   useWebMCP(() => [searchBlogTool(() => clientPosts ?? []), listBlogTagsTool(() => getBlogTags())]);

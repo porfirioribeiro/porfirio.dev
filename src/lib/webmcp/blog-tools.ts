@@ -1,7 +1,48 @@
-import type { BlogPostItem, BlogTag } from '#lib/types/blog.js';
+import type { BlogPostItem, BlogPostFull, BlogTag } from '#lib/types/blog.js';
 import { absoluteUrl } from './tools.js';
 
 type ExecuteResult = Record<string, unknown>;
+
+/**
+ * Filters blog posts by title or tag, case-insensitive.
+ * Used by both the page view and the search tool to maintain
+ * consistent matching logic.
+ */
+export function filterPosts(posts: BlogPostItem[], query: string): BlogPostItem[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+  return posts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(q) ||
+      post.tags.some((tag) => tag.name.toLowerCase().includes(q)),
+  );
+}
+
+/**
+ * Tool: returns details of a blog article. State-reflecting tool: it should
+ * be re-registered whenever the open article changes, so it always describes
+ * the article currently on screen.
+ */
+export function getCurrentArticleTool(getPost: () => BlogPostFull) {
+  return {
+    name: 'get_current_article',
+    title: 'Get current article',
+    description:
+      'Returns details of the blog article currently open on this page: title, absolute URL, tags, publication state, and description.',
+    inputSchema: { type: 'object', properties: {} },
+    annotations: { readOnlyHint: true },
+    execute: (): ExecuteResult => {
+      const post = getPost();
+      return {
+        title: post.title,
+        url: absoluteUrl(post.link),
+        tags: post.tags.map((t) => t.name),
+        isPublished: post.isPublished,
+        description: post.description ?? null,
+      };
+    },
+  };
+}
 
 /**
  * Tool: searches blog posts by title or tag. Read-only — it reports
@@ -28,13 +69,8 @@ export function searchBlogTool(getPosts: () => BlogPostItem[]) {
     },
     annotations: { readOnlyHint: true },
     execute: (input: Record<string, unknown>): ExecuteResult => {
-      const query = typeof input.query === 'string' ? input.query.trim().toLowerCase() : '';
-      if (!query) return { results: [], count: 0 };
-      const matches = getPosts().filter(
-        (post) =>
-          post.title.toLowerCase().includes(query) ||
-          post.tags.some((tag) => tag.name.toLowerCase().includes(query)),
-      );
+      const query = typeof input.query === 'string' ? input.query : '';
+      const matches = filterPosts(getPosts(), query);
       const results = matches.map((post) => ({
         title: post.title,
         url: absoluteUrl(post.link),

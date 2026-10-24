@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { getModelContext, registerTools, type WebMCPTool } from './model-context.js';
+import { isWebMCPSupported, registerTools, type WebMCPTool } from './model-context.js';
 
 export type UseWebMCPOptions = {
   /** Set to false to skip registration entirely. Defaults to true. */
@@ -29,7 +29,7 @@ export function useWebMCP(
 ): UseWebMCPResult {
   const { enabled = true } = options;
 
-  const supported = $state(browser && enabled && getModelContext() !== null);
+  const supported = browser && enabled && isWebMCPSupported();
 
   if (browser && enabled) {
     $effect(() => {

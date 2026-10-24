@@ -6,7 +6,7 @@
   import Reactions from "#lib/components/Reactions.svelte";
   import { getBlogPost } from "#lib/blog.remote.js";
   import { useWebMCP } from "#lib/webmcp/index.js";
-  import { absoluteUrl } from "#lib/webmcp/tools.js";
+  import { getCurrentArticleTool } from "#lib/webmcp/blog-tools.js";
 
   let { params } = $props();
 
@@ -14,23 +14,7 @@
 
   // State-reflecting tool: re-registers whenever the open article changes,
   // so it always describes the article currently on screen.
-  useWebMCP(() => [
-    {
-      name: "get_current_article",
-      title: "Get current article",
-      description:
-        "Returns details of the blog article currently open on this page: title, absolute URL, tags, publication state, and description.",
-      inputSchema: { type: "object", properties: {} },
-      annotations: { readOnlyHint: true },
-      execute: () => ({
-        title: data.post.title,
-        url: absoluteUrl(data.post.link),
-        tags: data.post.tags.map((t) => t.name),
-        isPublished: data.post.isPublished,
-        description: data.post.description ?? null,
-      }),
-    },
-  ]);
+  useWebMCP(() => [getCurrentArticleTool(() => data.post)]);
 </script>
 
 <BlogMeta post={data.post} />

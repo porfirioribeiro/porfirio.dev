@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { tick } from 'svelte';
+
   interface Props {
     query: string;
     onQuery: (query: string) => void;
@@ -9,7 +11,24 @@
   function submit(event: SubmitEvent) {
     event.preventDefault();
     const data = new FormData(event.currentTarget as HTMLFormElement);
-    onQuery(String(data.get('q') ?? ''));
+    const q = String(data.get('q') ?? '');
+    onQuery(q);
+
+    // Support agent-invoked submissions via the experimental WebMCP
+    // declarative API. If the browser provides event.agentInvoked and
+    // respondWith, call it with a summary of the filter action.
+    const agentEvent = event as SubmitEvent & {
+      agentInvoked?: boolean;
+      respondWith?: (result: Promise<string>) => void;
+    };
+    if (agentEvent.agentInvoked && agentEvent.respondWith) {
+      agentEvent.respondWith(
+        tick().then(() => {
+          const count = document.querySelectorAll('article').length;
+          return `Filtered blog posts by "${q}". Showing ${count} post${count !== 1 ? 's' : ''}.`;
+        }),
+      );
+    }
   }
 </script>
 
@@ -19,12 +38,11 @@
   from the WebMCP explainer's Declarative API and are still unstable —
   kept isolated in this component on purpose.
 -->
-<form onsubmit={submit}>
+<form onsubmit={submit} toolname="search_blog_form" tooldescription="Filter the blog post list by title or tag">
   <input
     type="search"
     name="q"
-    toolname="search_blog_form"
-    tooldescription="Filter the blog post list by title or tag"
+    toolparamdescription="Text to search in post titles and tags"
     placeholder="Search posts…"
     value={query}
     oninput={(e) => onQuery((e.currentTarget as HTMLInputElement).value)}

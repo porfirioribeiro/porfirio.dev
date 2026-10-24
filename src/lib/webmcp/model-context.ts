@@ -29,26 +29,12 @@ function detectContext():
 }
 
 /**
- * Returns the browser's ModelContext, adapting the earlier
- * `navigator.modelContext.provideContext` draft shape to a `registerTool`
- * interface. Returns `null` when the browser has no WebMCP support.
+ * Detects whether the browser supports WebMCP (either the current
+ * `document.modelContext` spec or the earlier `navigator.modelContext` draft).
+ * Returns false during SSR.
  */
-export function getModelContext(): WebMCP.ModelContext | null {
-  const detected = detectContext();
-  if (!detected) return null;
-  if (detected.kind === 'registerTool') return detected.modelContext;
-
-  // Draft-shape adapter: provideContext replaces the full set, so remember
-  // every registered tool and re-provide on each registration.
-  const tools: WebMCPTool[] = [];
-  const { provideContext } = detected;
-  return {
-    registerTool(tool: WebMCPTool) {
-      tools.push(tool);
-      provideContext({ tools: [...tools] });
-      return Promise.resolve();
-    },
-  } as unknown as WebMCP.ModelContext;
+export function isWebMCPSupported(): boolean {
+  return detectContext() !== null;
 }
 
 /**
@@ -84,11 +70,15 @@ export function registerTools(tools: WebMCPTool[]): () => void {
 
   const controllers = tools.map((tool) => {
     const controller = new AbortController();
-    detected.modelContext
-      .registerTool(tool, { signal: controller.signal })
-      .catch((error: unknown) =>
-        console.warn(`[webmcp] failed to register tool "${tool.name}"`, error),
-      );
+    try {
+      detected.modelContext
+        .registerTool(tool, { signal: controller.signal })
+        .catch((error: unknown) =>
+          console.warn(`[webmcp] failed to register tool "${tool.name}"`, error),
+        );
+    } catch (error) {
+      console.warn(`[webmcp] failed to register tool "${tool.name}"`, error);
+    }
     return controller;
   });
 

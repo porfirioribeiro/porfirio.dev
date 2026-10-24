@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vite-plus/test';
-import { getModelContext, registerTools } from './model-context.js';
+import { isWebMCPSupported, registerTools } from './model-context.js';
 import type { WebMCPTool } from './model-context.js';
 
 const tool = (name: string): WebMCPTool => ({
@@ -35,27 +35,21 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('getModelContext', () => {
-  it('returns null when no API exists', () => {
+describe('isWebMCPSupported', () => {
+  it('returns false when no API exists', () => {
     stubNoApi();
-    expect(getModelContext()).toBe(null);
+    expect(isWebMCPSupported()).toBe(false);
   });
 
-  it('detects document.modelContext', () => {
-    const { registerTool } = installFakeDocumentContext();
-    const mc = getModelContext();
-    expect(mc).not.toBe(null);
-    void mc?.registerTool(tool('a'));
-    expect(registerTool).toHaveBeenCalledTimes(1);
+  it('returns true when document.modelContext exists', () => {
+    installFakeDocumentContext();
+    expect(isWebMCPSupported()).toBe(true);
   });
 
-  it('falls back to navigator.modelContext provideContext', () => {
+  it('returns true when navigator.modelContext.provideContext exists', () => {
     vi.stubGlobal('document', {});
-    const { provideContext } = installFakeNavigatorContext();
-    const mc = getModelContext();
-    expect(mc).not.toBe(null);
-    void mc?.registerTool(tool('a'));
-    expect(provideContext).toHaveBeenCalledTimes(1);
+    installFakeNavigatorContext();
+    expect(isWebMCPSupported()).toBe(true);
   });
 });
 
@@ -106,6 +100,17 @@ describe('registerTools', () => {
     });
     registerTools([tool('a')]);
     await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(console.warn).toHaveBeenCalled();
+  });
+
+  it('logs a warning and does not throw when a sync exception occurs during registration', () => {
+    installFakeDocumentContext();
+    const registerTool = vi.fn(() => {
+      throw new DOMException('denied', 'InvalidStateError');
+    });
+    vi.stubGlobal('document', { modelContext: { registerTool } });
+
+    expect(() => registerTools([tool('a')])).not.toThrow();
     expect(console.warn).toHaveBeenCalled();
   });
 
