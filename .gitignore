@@ -19,3 +19,4 @@ node_modules
 .beads-credential-key
 .vitest/
 .dev.vars
+.superpowers/

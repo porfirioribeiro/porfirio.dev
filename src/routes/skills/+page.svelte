@@ -1,3 +1,7 @@
+<script lang="ts">
+  import { skillCategories } from '#lib/data/skills.js';
+</script>
+
 <svelte:head>
   <title>Skills</title>
   <meta name="description" content="porfirio.dev - Skills" />
@@ -5,35 +9,14 @@
 
 <h1>Skills</h1>
 
-<h3>Working with</h3>
-<ul>
-  <li>Vue with Typescript</li>
-  <li>Pinia</li>
-  <li>Nuxt</li>
-  <li>SCSS / PostCSS / CSS Modules</li>
-  <li>Microservices with Docker / Kubernetes</li>
-</ul>
-
-<h3>Previous experience</h3>
-<ul>
-  <li>React with TypeScript</li>
-  <li>SCSS / PostCSS / CSS Modules</li>
-  <li>Spring Boot with Java / Kotlin</li>
-  <li>Spring WebMVC / Spring WebFlux</li>
-  <li>PostgreSQL</li>
-  <li>Hibernate / JPA / R2DBC</li>
-  <li>Microservices with Docker / Kubernetes</li>
-  <li>Firebase</li>
-  <li>Flutter with Dart</li>
-</ul>
-
-<h3>Having fun &amp; exploring</h3>
-<ul>
-  <li>Deno</li>
-  <li>Svelte / SvelteKit</li>
-  <li>Reactive Streams and RSocket</li>
-  <li>Rust (SQLx, actix-web)</li>
-</ul>
+{#each skillCategories as category (category.name)}
+  <h3>{category.name}</h3>
+  <ul>
+    {#each category.items as item (item)}
+      <li>{item}</li>
+    {/each}
+  </ul>
+{/each}
 
 <style lang="scss">
   ul {
@@ -46,14 +29,14 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-  }
-  li::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--theme-secondary);
-    flex-shrink: 0;
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--theme-secondary);
+      flex-shrink: 0;
+    }
   }
 </style>

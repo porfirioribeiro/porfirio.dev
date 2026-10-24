@@ -1,5 +1,6 @@
-<script>
-  import Icon from "#lib/icons/Icon.svelte";
+<script lang="ts">
+  import Icon from '#lib/icons/Icon.svelte';
+  import { projects } from '#lib/data/projects.js';
 </script>
 
 <svelte:head>
@@ -14,97 +15,22 @@
   use in my day-to-day work.
 </p>
 
-<div class="project">
-  <h2>
-    rc-service
-    <a
-      href="https://github.com/porfirioribeiro/rc-service"
-      target="_blank"
-      rel="noopener noreferrer"><Icon icon="logo-github" size={20} /></a
-    >
-    <a
-      href="https://www.npmjs.com/package/rc-service"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon icon="logo-npm" size={20} />
-    </a>
-    <span class="tech"><Icon icon="logo-react" size={18} /></span>
-    <span class="tech"><Icon icon="logo-typescript" size={18} /></span>
-  </h2>
-  <p>
-    React Context Services — a tiny (&lt;1 kb) dependency injection and state
-    management library for React.
-  </p>
-</div>
-<div class="project">
-  <h2>
-    react-showof
-    <a
-      href="https://github.com/porfirioribeiro/react-showof"
-      target="_blank"
-      rel="noopener noreferrer"><Icon icon="logo-github" size={20} /></a
-    >
-    <a
-      href="https://www.npmjs.com/package/react-showof"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon icon="logo-npm" size={20} />
-    </a>
-    <span class="tech"><Icon icon="logo-react" size={18} /></span>
-    <span class="tech"><Icon icon="logo-typescript" size={18} /></span>
-  </h2>
-  <p>
-    A small (&lt;500 b) opinionated component to help with mount/unmount transitions.
-  </p>
-</div>
-<div class="project">
-  <h2>
-    date-input-manager
-    <a
-      href="https://github.com/porfirioribeiro/date-input-manager"
-      target="_blank"
-      rel="noopener noreferrer"><Icon icon="logo-github" size={20} /></a
-    >
-    <span class="tech"><Icon icon="logo-typescript" size={18} /></span>
-  </h2>
-  <p>
-    Manages input state to make building date inputs straightforward and ergonomic.
-  </p>
-</div>
-<div class="project">
-  <h2>
-    staticmaps-react
-    <a
-      href="https://github.com/porfirioribeiro/staticmaps-react"
-      target="_blank"
-      rel="noopener noreferrer"><Icon icon="logo-github" size={20} /></a
-    >
-    <span class="tech"><Icon icon="logo-react" size={18} /></span>
-    <span class="tech"><Icon icon="logo-typescript" size={18} /></span>
-  </h2>
-  <p>
-    Render simple static maps with React, supporting Polygons, Markers and
-    Overlay images. Made as a side project, never published on npm, but heavily used
-    inside company code.
-  </p>
-</div>
-<div class="project last">
-  <h2>
-    openapi2ts
-    <a
-      href="https://github.com/porfirioribeiro/openapi2ts"
-      target="_blank"
-      rel="noopener noreferrer"><Icon icon="logo-github" size={20} /></a
-    >
-    <span class="tech"><Icon icon="logo-typescript" size={18} /></span>
-  </h2>
-  <p>
-    Generate TypeScript types for models and definitions from Swagger 2 JSON
-    files.
-  </p>
-</div>
+{#each projects as project, i (project.name)}
+  <div class="project" class:last={i === projects.length - 1}>
+    <h2>
+      {project.name}
+      {#each project.links as link (link.label)}
+        <a href={link.href} target="_blank" rel="noopener noreferrer">
+          <Icon icon={link.icon} size={20} />
+        </a>
+      {/each}
+      {#each project.tech as tech (tech.name)}
+        <span class="tech"><Icon icon={tech.icon} size={18} /></span>
+      {/each}
+    </h2>
+    <p>{project.description}</p>
+  </div>
+{/each}
 
 <style lang="scss">
   .project {
