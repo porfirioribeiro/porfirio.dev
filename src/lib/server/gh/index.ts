@@ -50,7 +50,7 @@ const enum SystemLabels {
 
 const PublishedArticleLabels = [SystemLabels.Article, SystemLabels.Published];
 
-export function createGH({ fetch }: RequestEvent, token: string = GITHUB_TOKEN) {
+export function createGH({ fetch }: RequestEvent, token: string | undefined = GITHUB_TOKEN) {
   interface GHRequestOptions {
     mediaType?: 'json' | 'raw' | 'text' | 'html' | 'full';
   }
