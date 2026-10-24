@@ -3,6 +3,10 @@
   import { books } from '#lib/resources/books.js';
   import { podcasts } from '#lib/resources/podcasts.js';
   import { courses } from '#lib/resources/courses.js';
+  import { useWebMCP } from '#lib/webmcp/index.js';
+  import { listResourcesTool } from '#lib/webmcp/resources-tools.js';
+
+  useWebMCP(() => [listResourcesTool({ book: books, podcast: podcasts, course: courses })]);
 </script>
 
 <svelte:head>

@@ -5,10 +5,16 @@
   import Markdown from "#lib/components/Markdown.svelte";
   import Reactions from "#lib/components/Reactions.svelte";
   import { getBlogPost } from "#lib/blog.remote.js";
+  import { useWebMCP } from "#lib/webmcp/index.js";
+  import { getCurrentArticleTool } from "#lib/webmcp/blog-tools.js";
 
   let { params } = $props();
 
   const data = $derived(await getBlogPost({ id: params.id, slug: params.slug }));
+
+  // State-reflecting tool: re-registers whenever the open article changes,
+  // so it always describes the article currently on screen.
+  useWebMCP(() => [getCurrentArticleTool(() => data.post)]);
 </script>
 
 <BlogMeta post={data.post} />

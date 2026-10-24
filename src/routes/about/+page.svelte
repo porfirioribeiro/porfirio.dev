@@ -1,3 +1,10 @@
+<script lang="ts">
+  import { useWebMCP } from '#lib/webmcp/index.js';
+  import { getProfileTool } from '#lib/webmcp/tools.js';
+
+  useWebMCP(() => [getProfileTool()]);
+</script>
+
 <svelte:head>
   <title>About</title>
   <meta name="description" content="porfirio.dev - About this website" />
