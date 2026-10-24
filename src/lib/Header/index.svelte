@@ -3,6 +3,9 @@
   import Icon from "../icons/Icon.svelte";
 
   let menuOpen = $state(false);
+  let menuWrapper: HTMLDivElement | undefined;
+  let menuButton: HTMLButtonElement | undefined;
+  let navEl: HTMLElement | undefined;
 
   function isActive(path: string) {
     return path === "/"
@@ -14,8 +17,37 @@
     menuOpen = false;
   }
 
+  function menuFocusables() {
+    if (!menuButton || !navEl) return [];
+    return [menuButton, ...navEl.querySelectorAll<HTMLAnchorElement>("a[href]")];
+  }
+
   function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Escape") closeMenu();
+    if (!menuOpen) return;
+
+    if (event.key === "Escape") {
+      closeMenu();
+      menuButton?.focus();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const items = menuFocusables();
+    const first = items[0];
+    const last = items.at(-1);
+    const active = document.activeElement;
+
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first?.focus();
+    } else if (!menuWrapper?.contains(active)) {
+      event.preventDefault();
+      first?.focus();
+    }
   }
 </script>
 
@@ -34,9 +66,10 @@
     </a>
   </div>
 
-  <div class="menu-wrapper" class:open={menuOpen}>
+  <div class="menu-wrapper" class:open={menuOpen} bind:this={menuWrapper}>
     <button
       type="button"
+      bind:this={menuButton}
       aria-label={menuOpen ? "Close menu" : "Open menu"}
       aria-expanded={menuOpen}
       aria-controls="site-nav"
@@ -55,7 +88,7 @@
         <rect x={0} y={18} width={24} height={4} />
       </svg>
     </button>
-    <nav id="site-nav" aria-label="Main">
+    <nav id="site-nav" aria-label="Main" bind:this={navEl}>
       <ul>
         <li class:active={isActive("/")}>
           <a

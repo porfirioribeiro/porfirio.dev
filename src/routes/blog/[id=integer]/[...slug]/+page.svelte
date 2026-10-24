@@ -20,10 +20,7 @@
 <BlogMeta post={data.post} />
 <svelte:head>
   {#if data.post.blocks.code}
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css"
-    />
+    <link rel="stylesheet" href="/github-dark.css" />
   {/if}
   {#if data.post.blocks.twitter}
     <script
