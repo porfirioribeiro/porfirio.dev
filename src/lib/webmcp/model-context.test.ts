@@ -45,7 +45,7 @@ describe('getModelContext', () => {
     const { registerTool } = installFakeDocumentContext();
     const mc = getModelContext();
     expect(mc).not.toBe(null);
-    mc?.registerTool(tool('a'));
+    void mc?.registerTool(tool('a'));
     expect(registerTool).toHaveBeenCalledTimes(1);
   });
 
@@ -54,7 +54,7 @@ describe('getModelContext', () => {
     const { provideContext } = installFakeNavigatorContext();
     const mc = getModelContext();
     expect(mc).not.toBe(null);
-    mc?.registerTool(tool('a'));
+    void mc?.registerTool(tool('a'));
     expect(provideContext).toHaveBeenCalledTimes(1);
   });
 });

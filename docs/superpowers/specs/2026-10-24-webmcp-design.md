@@ -1,7 +1,8 @@
 # WebMCP Exploration on porfirio.dev — Design
 
 **Date:** 2026-10-24
-**Status:** Draft, awaiting approval
+**Status:** Implemented (2026-10-24) — see `docs/webmcp-testing.md` for the
+tool inventory and manual verification steps.
 **Size:** Project (learning-oriented feature work)
 
 ## Intent
