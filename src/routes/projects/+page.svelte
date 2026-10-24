@@ -1,6 +1,10 @@
 <script lang="ts">
   import Icon from '#lib/icons/Icon.svelte';
   import { projects } from '#lib/data/projects.js';
+  import { useWebMCP } from '#lib/webmcp/index.js';
+  import { listProjectsTool } from '#lib/webmcp/tools.js';
+
+  useWebMCP(() => [listProjectsTool(projects)]);
 </script>
 
 <svelte:head>
