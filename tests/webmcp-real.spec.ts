@@ -31,7 +31,8 @@ async function execute(page: Page, name: string, input: Record<string, unknown> 
       if (!mc) throw new Error('document.modelContext is not available');
       const tools = await mc.getTools();
       const tool = tools.find((t) => t.name === n);
-      if (!tool) throw new Error(`tool "${n}" not registered; have: ${tools.map((t) => t.name)}`);
+      if (!tool)
+        throw new Error(`tool "${n}" not registered; have: ${tools.map((t) => t.name).join(', ')}`);
       return JSON.parse(await mc.executeTool(tool, i)) as Record<string, unknown>;
     },
     [name, input] as const,
