@@ -50,7 +50,7 @@ const enum SystemLabels {
 
 const PublishedArticleLabels = [SystemLabels.Article, SystemLabels.Published];
 
-export function createGH({ fetch }: RequestEvent) {
+export function createGH({ fetch }: RequestEvent, token: string = GITHUB_TOKEN) {
   interface GHRequestOptions {
     mediaType?: 'json' | 'raw' | 'text' | 'html' | 'full';
   }
@@ -61,7 +61,10 @@ export function createGH({ fetch }: RequestEvent) {
 
     return fetch(url, {
       headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        // An empty token must not be sent: GitHub rejects `Bearer ` with
+        // 401 "Bad credentials". Omitting the header allows unauthenticated
+        // requests (fine for local dev; production always has a token).
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         Accept: `application/vnd.github${mtExt}+json`,
         'X-GitHub-Api-Version': '2022-11-28',
         'User-Agent': 'porfirio.dev-Api',
