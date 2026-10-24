@@ -29,7 +29,7 @@ export const getBlogPostsByTag = query(v.string(), async (name) => {
 });
 
 export const getBlogPost = query(
-  v.object({ id: v.number(), slug: v.string() }),
+  v.object({ id: v.number(), slug: v.optional(v.string(), '') }),
   async ({ id, slug }) => {
     const ghClient = gh();
     const post = await ghClient.getBlogPostById(id);

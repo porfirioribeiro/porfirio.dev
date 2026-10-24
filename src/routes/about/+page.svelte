@@ -1,14 +1,23 @@
 <script lang="ts">
+  import Seo from '#lib/components/Seo.svelte';
+  import { breadcrumbSchema } from '#lib/seo.js';
   import { useWebMCP } from '#lib/webmcp/index.js';
   import { getProfileTool } from '#lib/webmcp/tools.js';
+
+  const description =
+    'The story of porfirio.dev: how Porfírio Ribeiro stopped over-engineering his personal site and rebuilt it with SvelteKit.';
 
   useWebMCP(() => [getProfileTool()]);
 </script>
 
-<svelte:head>
-  <title>About</title>
-  <meta name="description" content="porfirio.dev - About this website" />
-</svelte:head>
+<Seo
+  title="About this website — Porfírio Ribeiro"
+  {description}
+  jsonLd={breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ])}
+/>
 
 <h1>About this website</h1>
 

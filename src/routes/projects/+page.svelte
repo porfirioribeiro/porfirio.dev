@@ -1,16 +1,25 @@
 <script lang="ts">
+  import Seo from '#lib/components/Seo.svelte';
   import Icon from '#lib/icons/Icon.svelte';
   import { projects } from '#lib/data/projects.js';
+  import { breadcrumbSchema } from '#lib/seo.js';
   import { useWebMCP } from '#lib/webmcp/index.js';
   import { listProjectsTool } from '#lib/webmcp/tools.js';
+
+  const description =
+    'Small open-source projects by Porfírio Ribeiro, including rc-service, react-showof, date-input-manager, staticmaps-react and openapi2ts.';
 
   useWebMCP(() => [listProjectsTool(projects)]);
 </script>
 
-<svelte:head>
-  <title>Projects</title>
-  <meta name="description" content="porfirio.dev - Projects" />
-</svelte:head>
+<Seo
+  title="Projects — Porfírio Ribeiro | porfirio.dev"
+  {description}
+  jsonLd={breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Projects', path: '/projects' },
+  ])}
+/>
 
 <h1>Projects</h1>
 
@@ -21,17 +30,24 @@
 
 {#each projects as project, i (project.name)}
   <div class="project" class:last={i === projects.length - 1}>
-    <h2>
-      {project.name}
-      {#each project.links as link (link.label)}
-        <a href={link.href} target="_blank" rel="noopener noreferrer">
-          <Icon icon={link.icon} size={20} />
-        </a>
-      {/each}
-      {#each project.tech as tech (tech.name)}
-        <span class="tech"><Icon icon={tech.icon} size={18} /></span>
-      {/each}
-    </h2>
+    <div class="heading">
+      <h2>{project.name}</h2>
+      <div class="links">
+        {#each project.links as link (link.label)}
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.name} on ${link.label}`}
+          >
+            <Icon icon={link.icon} size={20} />
+          </a>
+        {/each}
+        {#each project.tech as tech (tech.name)}
+          <span class="tech" aria-hidden="true"><Icon icon={tech.icon} size={18} /></span>
+        {/each}
+      </div>
+    </div>
     <p>{project.description}</p>
   </div>
 {/each}
@@ -45,13 +61,23 @@
       border-bottom: none;
     }
 
-    h2 {
-      font-weight: 600;
-      font-size: 1.05rem;
+    .heading {
       display: flex;
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .links {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
 
       a,
       .tech {

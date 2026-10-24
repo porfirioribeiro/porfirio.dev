@@ -8,7 +8,11 @@
 
 <div>
   {#each reactions as reaction (reaction.name)}
-    <button title={reaction.name}>{reaction.icon}&nbsp;{reaction.count}</button>
+    <span class="reaction" title={reaction.name}>
+      <span aria-hidden="true">{reaction.icon}</span>
+      <span class="visually-hidden">{reaction.name}:</span>
+      {reaction.count}
+    </span>
   {/each}
 </div>
 
@@ -21,7 +25,10 @@
     align-items: center;
     flex-wrap: wrap;
 
-    > button {
+    > .reaction {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       height: 26px;
       padding: 0 8px;
       font-size: 12px;
@@ -29,9 +36,6 @@
       background-color: transparent;
       border: 1px solid #d2dff0;
       border-radius: 100px;
-
-      appearance: none;
-
       color: rgb(139, 148, 158);
     }
   }

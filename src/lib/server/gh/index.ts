@@ -89,7 +89,10 @@ export function createGH({ fetch }: RequestEvent, token: string | undefined = GI
 
   return {
     async getAllBlogPosts({ tag }: GetPostsOptions = {}) {
-      const labels = (PublishedArticleLabels as string[]).concat(tag ?? []).join(',');
+      const labels = (PublishedArticleLabels as string[])
+        .concat(tag ?? [])
+        .map(encodeURIComponent)
+        .join(',');
 
       // only isses created by the repository owner
       const r = await ghRequest<GHIssue[]>(`issues?labels=${labels}&creator=${owner}`, {
@@ -98,7 +101,7 @@ export function createGH({ fetch }: RequestEvent, token: string | undefined = GI
       return r.map(mapToBlogPostItem);
     },
     async getLabelByName(name: string): Promise<BlogTag | null> {
-      const r = await ghRequestRaw(`labels/${name}`);
+      const r = await ghRequestRaw(`labels/${encodeURIComponent(name)}`);
       if (!r.ok) return null;
 
       return mapLabelToTag((await r.json()) as GHLabel);
@@ -190,7 +193,7 @@ function mapLabelToTag({ name, description, color }: GHLabel): BlogTag {
   return {
     name: name ?? '',
     description: description ?? undefined,
-    link: '/blog/tag/' + name,
+    link: '/blog/tag/' + encodeURIComponent(name ?? ''),
     color: color ? `#${color}` : undefined,
   };
 }

@@ -1,13 +1,17 @@
 <script lang="ts">
+  import { normaliseHeadings } from '#lib/html.js';
+
   interface Props {
     body: string;
   }
 
   let { body }: Props = $props();
+
+  const html = $derived(normaliseHeadings(body));
 </script>
 
 <div>
-  {@html body}
+  {@html html}
 </div>
 
 <style lang="scss">

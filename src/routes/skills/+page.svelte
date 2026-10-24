@@ -1,7 +1,12 @@
 <script lang="ts">
+  import Seo from '#lib/components/Seo.svelte';
   import { skillCategories } from '#lib/data/skills.js';
+  import { breadcrumbSchema } from '#lib/seo.js';
   import { useWebMCP } from '#lib/webmcp/index.js';
   import { listSkillsTool, filterSkillsTool } from '#lib/webmcp/skills-tools.js';
+
+  const description =
+    'The technologies Porfírio Ribeiro works with today, his previous frontend, backend and mobile experience, and what he is currently exploring.';
 
   let activeCategory = $state<string | null>(null);
 
@@ -18,14 +23,18 @@
   useWebMCP(() => [listSkillsTool(skillCategories), filterSkillsTool(skillCategories, setCategory)]);
 </script>
 
-<svelte:head>
-  <title>Skills</title>
-  <meta name="description" content="porfirio.dev - Skills" />
-</svelte:head>
+<Seo
+  title="Skills — Porfírio Ribeiro | porfirio.dev"
+  {description}
+  jsonLd={breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Skills', path: '/skills' },
+  ])}
+/>
 
 <h1>Skills</h1>
 
-<div class="filters">
+<div class="filters" role="group" aria-label="Filter skills by category">
   <button class:active={activeCategory === null} aria-pressed={activeCategory === null} onclick={() => setCategory(null)}>
     All
   </button>
@@ -39,9 +48,12 @@
     </button>
   {/each}
 </div>
+<p class="visually-hidden" aria-live="polite">
+  Showing {visibleCategories.length} of {categoryNames.length} categories.
+</p>
 
 {#each visibleCategories as category (category.name)}
-  <h3>{category.name}</h3>
+  <h2 class="section-title">{category.name}</h2>
   <ul>
     {#each category.items as item (item)}
       <li>{item}</li>
@@ -80,6 +92,14 @@
         border-color: var(--theme-secondary);
       }
     }
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--theme-muted);
+    margin: 2rem 0 0.5rem;
   }
 
   ul {

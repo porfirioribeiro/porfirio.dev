@@ -8,15 +8,17 @@
   let { children }: Props = $props();
 </script>
 
+<a class="skip-link" href="#main-content">Skip to content</a>
+
 <Header />
 
-<main>
+<main id="main-content" tabindex="-1">
   {@render children?.()}
 </main>
 
 <footer>
   <p>
-    <a href="/about">Over-engineered</a> with
+    <a href="/about">About this website</a> — over-engineered with
     <a href="https://kit.svelte.dev" target="_blank" rel="noopener noreferrer"
       >SvelteKit</a
     > by Porfírio Ribeiro

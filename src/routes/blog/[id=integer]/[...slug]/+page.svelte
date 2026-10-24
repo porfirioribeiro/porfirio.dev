@@ -43,19 +43,27 @@
   <Reactions reactions={data.post.reactions} />
 
   <div>
-    <time>{data.post.date}</time>
+    <time datetime={data.post.date}>{data.post.date}</time>
     <TagChips tags={data.post.tags} />
   </div>
 </article>
 
-<section>
+<section aria-labelledby="comments">
+  <h2 id="comments">Comments</h2>
   {#each data.comments as comment (comment.id)}
-    <article>
+    <article aria-label={`Comment by ${comment.author.name}`}>
       <a href={comment.author.ghUrl}>
-        <img src={comment.author.avatar} alt={comment.author.name} width="32" />
+        <img
+          src={comment.author.avatar}
+          alt={comment.author.name}
+          width="32"
+          height="32"
+          loading="lazy"
+          decoding="async"
+        />
       </a>
       <a href={comment.ghUrl}>
-        <time>
+        <time datetime={comment.created_at}>
           {formatDistanceToNow(new Date(comment.created_at), {
             addSuffix: true,
             includeSeconds: true,
@@ -66,6 +74,8 @@
       <Markdown body={comment.body} />
       <Reactions reactions={comment.reactions} />
     </article>
+  {:else}
+    <p>No comments yet.</p>
   {/each}
 
   <a

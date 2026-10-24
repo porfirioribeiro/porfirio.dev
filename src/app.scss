@@ -26,12 +26,52 @@ body {
   margin: 0;
   background-color: var(--theme-background);
   color: var(--theme-on-background);
-}
-
-#svelte {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+main {
+  min-width: 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--theme-secondary);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 10;
+  padding: 0.6rem 0.9rem;
+  background-color: var(--theme-secondary);
+  color: var(--theme-on-secondary);
+  border-radius: 4px;
+  font-weight: 700;
+  transform: translateY(-150%);
+  transition: transform 150ms ease-in-out;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  text-decoration: none;
 }
 
 h1,
@@ -86,5 +126,16 @@ button:focus:not(:focus-visible) {
 @media (min-width: 720px) {
   h1 {
     font-size: 2.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

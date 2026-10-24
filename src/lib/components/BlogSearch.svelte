@@ -38,8 +38,16 @@
   from the WebMCP explainer's Declarative API and are still unstable —
   kept isolated in this component on purpose.
 -->
-<form onsubmit={submit} toolname="search_blog_form" tooldescription="Filter the blog post list by title or tag">
+<form
+  onsubmit={submit}
+  role="search"
+  aria-label="Search blog posts"
+  toolname="search_blog_form"
+  tooldescription="Filter the blog post list by title or tag"
+>
+  <label class="visually-hidden" for="blog-search">Search blog posts</label>
   <input
+    id="blog-search"
     type="search"
     name="q"
     toolparamdescription="Text to search in post titles and tags"
@@ -68,8 +76,12 @@
     appearance: none;
 
     &:focus {
-      outline: none;
       border-color: var(--theme-secondary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--theme-secondary);
+      outline-offset: 2px;
     }
   }
 

@@ -12,19 +12,22 @@
 
 {#each posts as post (post.number)}
   <article>
-    <a class="title" href={post.link}><h3>{post.title}</h3></a>
+    <h2 class="post-title">
+      <a class="title" href={post.link}>{post.title}</a>
+    </h2>
     {#if post.description}
       <p class="description">{post.description}</p>
     {/if}
     <div class="chips">
       <TagChips tags={post.tags} />
     </div>
-    <time>{post.date}</time>
+    <time datetime={post.date}>{post.date}</time>
     <a
       href={`${post.ghUrl}#js-timeline-progressive-loader`}
       class="meta"
       target="_blank"
       rel="noreferrer"
+      aria-label={`Reactions and comments for ${post.title} on GitHub`}
     >
       <span>{post.reactions}</span><Icon icon="octoicon-smiley" size={16} />
       <span>{post.comments}</span><Icon icon="octoicon-comment" size={16} />
@@ -41,11 +44,18 @@
     grid-template-areas: "title meta" "description time" "chips chips";
     // grid-template-columns: auto min-content;
     margin-bottom: 1em;
-    .title {
+    .post-title {
       grid-area: title;
       flex-grow: 1;
-      h3 {
-        margin: 0.5rem 0;
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--theme-muted);
+
+      a {
+        color: inherit;
       }
     }
     .chips {
@@ -66,7 +76,7 @@
       line-height: 21px;
       gap: 6px;
       margin-left: 0.5em;
-      color: #666;
+      color: var(--theme-muted);
       font-size: 0.9em;
     }
   }

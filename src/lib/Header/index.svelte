@@ -1,39 +1,96 @@
 <script lang="ts">
   import { page } from "$app/state";
   import Icon from "../icons/Icon.svelte";
+
+  let menuOpen = $state(false);
+
+  function isActive(path: string) {
+    return path === "/"
+      ? page.url.pathname === "/"
+      : page.url.pathname.startsWith(path);
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === "Escape") closeMenu();
+  }
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <header>
   <div class="corner left">
-    <a href="/">
-      <img src="/android-chrome-192x192.png" alt="porfirio.dev" />
+    <a href="/" aria-label="porfirio.dev — home">
+      <img
+        src="/android-chrome-192x192.png"
+        alt=""
+        width="32"
+        height="32"
+        decoding="async"
+      />
     </a>
   </div>
 
-  <div class="menu-wrapper" tabindex="-1">
-    <button aria-label="Open menu">
-      <svg width={24} height={24} viewBox="0 0 24 24" fill="white">
+  <div class="menu-wrapper" class:open={menuOpen}>
+    <button
+      type="button"
+      aria-label={menuOpen ? "Close menu" : "Open menu"}
+      aria-expanded={menuOpen}
+      aria-controls="site-nav"
+      onclick={() => (menuOpen = !menuOpen)}
+    >
+      <svg
+        width={24}
+        height={24}
+        viewBox="0 0 24 24"
+        fill="white"
+        aria-hidden="true"
+        focusable="false"
+      >
         <rect x={0} y={2} width={24} height={4} />
         <rect x={0} y={10} width={24} height={4} />
         <rect x={0} y={18} width={24} height={4} />
       </svg>
     </button>
-    <nav>
+    <nav id="site-nav" aria-label="Main">
       <ul>
-        <li class:active={page.url.pathname === "/"}>
-          <a href="/">Home</a>
+        <li class:active={isActive("/")}>
+          <a
+            href="/"
+            aria-current={isActive("/") ? "page" : undefined}
+            onclick={closeMenu}>Home</a
+          >
         </li>
-        <li class:active={page.url.pathname === "/projects"}>
-          <a href="/projects">Projects</a>
+        <li class:active={isActive("/projects")}>
+          <a
+            href="/projects"
+            aria-current={isActive("/projects") ? "page" : undefined}
+            onclick={closeMenu}>Projects</a
+          >
         </li>
-        <li class:active={page.url.pathname === "/skills"}>
-          <a href="/skills">Skills</a>
+        <li class:active={isActive("/skills")}>
+          <a
+            href="/skills"
+            aria-current={isActive("/skills") ? "page" : undefined}
+            onclick={closeMenu}>Skills</a
+          >
         </li>
-        <li class:active={page.url.pathname === "/resources"}>
-          <a href="/resources">Resources</a>
+        <li class:active={isActive("/resources")}>
+          <a
+            href="/resources"
+            aria-current={isActive("/resources") ? "page" : undefined}
+            onclick={closeMenu}>Resources</a
+          >
         </li>
-        <li class:active={page.url.pathname.startsWith("/blog")}>
-          <a href="/blog">Blog</a>
+        <li class:active={isActive("/blog")}>
+          <a
+            href="/blog"
+            aria-current={isActive("/blog") ? "page" : undefined}
+            onclick={closeMenu}>Blog</a
+          >
         </li>
       </ul>
     </nav>
@@ -44,6 +101,7 @@
       href="https://github.com/porfirioribeiro"
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Porfírio Ribeiro on GitHub"
     >
       <Icon icon="logo-github" />
     </a>
@@ -51,6 +109,7 @@
       href="https://twitter.com/porfirio"
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Porfírio Ribeiro on Twitter"
     >
       <Icon icon="logo-twitter" />
     </a>
@@ -58,6 +117,7 @@
       href="https://linkedin.com/in/porfirioribeiro"
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Porfírio Ribeiro on LinkedIn"
     >
       <Icon icon="logo-linkedin" />
     </a>
@@ -153,9 +213,12 @@
   @media (max-width: 719px) {
     nav {
       overflow: hidden;
-      transition: all 0.2s linear;
+      transition:
+        opacity 0.2s linear,
+        visibility 0.2s linear;
       position: fixed;
       inset: 0;
+      z-index: 1;
       background: radial-gradient(
         76.34% 42.37% at 49.88% 0%,
         transparent 0%,
@@ -181,24 +244,28 @@
       justify-content: center;
     }
 
-    .menu-wrapper:focus-within {
-      button rect {
-        &:nth-child(1) {
-          transform: rotate(-45deg) translate(0px, 8px);
-        }
-        &:nth-child(2) {
-          transform: scaleX(0);
-        }
-        &:nth-child(3) {
-          transform: rotate(45deg) translate(0px, -8px);
-        }
+    .menu-wrapper button {
+      position: relative;
+      z-index: 2;
+    }
+
+    .menu-wrapper.open button rect {
+      &:nth-child(1) {
+        transform: rotate(-45deg) translate(0px, 8px);
+      }
+      &:nth-child(2) {
+        transform: scaleX(0);
+      }
+      &:nth-child(3) {
+        transform: rotate(45deg) translate(0px, -8px);
       }
     }
 
-    .menu-wrapper:not(:focus-within) > nav {
+    .menu-wrapper:not(.open) > nav {
       // transform: scale(0);
       pointer-events: none;
       opacity: 0;
+      visibility: hidden;
     }
   }
 

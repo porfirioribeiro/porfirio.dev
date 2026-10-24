@@ -1,5 +1,7 @@
 <script lang="ts">
-  import type { BlogTag } from "#lib/types/blog.js";
+  import { readableTextColor } from '#lib/color.js';
+  import TagChips from './TagChips.svelte';
+  import type { BlogTag } from '#lib/types/blog.js';
 
   interface Props {
     tags: BlogTag[];
@@ -10,7 +12,11 @@
 
 <div>
   {#each tags as tag (tag.name)}
-    <a href={tag.link} style={`--color: ${tag.color}`} title={tag.description}>
+    <a
+      href={tag.link}
+      style={`--color: ${tag.color ?? '#57606a'}; --on-tag: ${readableTextColor(tag.color)}`}
+      title={tag.description}
+    >
       {tag.name}
     </a>
   {/each}
@@ -25,13 +31,11 @@
     display: inline-block;
     padding: 3px 6px;
     border-radius: 2em;
-    color: #fff;
+    color: var(--on-tag, #fff);
     text-decoration: none;
     font-size: 14px;
     background-color: var(--color);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     &:hover {
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
       text-decoration: underline;
     }
   }

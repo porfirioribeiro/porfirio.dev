@@ -1,28 +1,41 @@
 <script lang="ts">
   import type { BlogPostFull } from "#lib/types/blog.js";
+  import { blogPostingSchema, blogSchema, breadcrumbSchema, personSchema, websiteSchema } from "#lib/seo.js";
+  import Seo from "./Seo.svelte";
 
   interface Props {
     post: BlogPostFull;
   }
 
   let { post }: Props = $props();
+
+  const description = $derived(
+    post.description ||
+      `An article by Porfírio Ribeiro about software development on the porfirio.dev blog.`,
+  );
+  const tags = $derived(post.tags.map((tag) => tag.name));
+  const breadcrumb = $derived([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: post.title, path: post.link },
+  ]);
 </script>
 
-<svelte:head>
-  <title>{post.title}</title>
-  <meta name="description" content={post.description} />
-  <meta name="keywords" content={post.keywords} />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@porfirio" />
-  <meta name="twitter:creator" content="@porfirio" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content={post.title} />
-  <meta property="og:description" content={post.description} />
-  <meta property="og:image" content={post.image} />
-  <meta property="og:url" content={post.link} />
-  <meta property="og:site_name" content="Porfírio dev" />
-  <meta property="article:published_time" content={post.date} />
-  <meta property="article:author" content="Porfírio" />
-  <meta property="article:tag" content={post.keywords} />
-  <link rel="canonical" href={post.link} />
-</svelte:head>
+<Seo
+  title={`${post.title} — Porfírio Ribeiro`}
+  {description}
+  path={post.link}
+  type="article"
+  image={post.image}
+  imageAlt={post.title}
+  publishedTime={post.date}
+  {tags}
+  noindex={!post.isPublished}
+  jsonLd={[
+    websiteSchema(description),
+    personSchema(),
+    blogSchema(),
+    blogPostingSchema(post),
+    breadcrumbSchema(breadcrumb),
+  ]}
+/>
