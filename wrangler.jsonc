@@ -9,10 +9,7 @@
     "directory": ".svelte-kit/cloudflare",
     "binding": "ASSETS",
   },
-  "routes": [
-    { "pattern": "porfirio.dev/*", "zone_name": "porfirio.dev" },
-    { "pattern": "www.porfirio.dev/*", "zone_name": "porfirio.dev" },
-  ],
+  "routes": [{ "pattern": "porfirio.dev/*", "zone_name": "porfirio.dev" }],
   // Worker Previews: `previews` block is required by `npx wrangler preview`
   // (empty = previews use top-level settings). `preview_urls` gives Previews a
   // public <preview>-porfirio-dev...workers.dev URL; it defaults to false and

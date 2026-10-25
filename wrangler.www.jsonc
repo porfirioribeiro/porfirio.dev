@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "porfirio-www",
+  "account_id": "0bf87e76fffe7554f4cbc045738e5dd5",
+  "main": "workers/www-redirect.ts",
+  "compatibility_date": "2026-10-06",
+  // Deploy separately from the main site:
+  //   pnpm exec wrangler deploy --config wrangler.www.jsonc
+  // Keep it off workers.dev; it exists only for the www route.
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "www.porfirio.dev/*", "zone_name": "porfirio.dev" }],
+}
